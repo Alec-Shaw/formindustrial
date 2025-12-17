@@ -1,38 +1,76 @@
-.App {
-  text-align: center;
+:root {
+  --sjs-base-unit: 8px;
+  --base-unit: 8px;
+  --sjs-transition-duration: 150ms;
+
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+label {
+  display: flex;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.img_choos {
   display: flex;
   flex-direction: column;
+}
+
+.group_img {
+  display: flex;
+  margin-bottom: 30px;
+}
+.img_size {
+  width: 200px;
+}
+
+.img_border {
+  border: #cecece 1px solid;
+  padding: 10px;
+  display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  margin-bottom: 10px;
+  
 }
 
-.App-link {
-  color: #61dafb;
+button {
+  width: 110px;
+  height: 40px;
+  margin-right: 20px;
+  margin-top: 30px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+input[type="radio"] {
+    /* Скрываем стандартные стили */
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ccc;
+    border-radius: 50%; /* Круглая форма */
+    background-color: #fff;
+    cursor: pointer;
+    outline: none;
+    margin-right: 8px;
+    margin-top: 2px;
 }
+
+input[type="radio"]:checked {
+    background-color: #ffffff; /* Зеленый фон при выборе */
+    border-color: #b8b8b8;
+}
+
+/* Точка внутри */
+input[type="radio"]:checked::before {
+    content: '';
+    display: block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #b35100; /* Белая точка */
+    margin: 3px auto;
+}
+/* Hover: работает независимо */
+input[type="radio"]:hover {
+  border-color: #b35100 !important;
+
+}
+
