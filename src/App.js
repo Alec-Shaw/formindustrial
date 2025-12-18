@@ -8,13 +8,14 @@ const App = () =>  {
 
     const updateFormData = (newData) => {
         setFormData(prev => ({ ...prev, ...newData }));
+        
     };
 
     return (
         <Router>
-            <div className="App" style={{ maxWidth: '800px', margin: '0 auto', padding: '20px' }}>
+            <div className="App">
                 <Routes>
-                    <Route path="/" element={<Step0 updateFormData={updateFormData} />} />
+                    <Route path="/" element={<Step0 formData={formData} updateFormData={updateFormData} />} />
                     <Route path="/industrial" element={<IndustrialBranch formData={formData} updateFormData={updateFormData} />} />
                     {/* Роуты для других веток */}
                 </Routes>

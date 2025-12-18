@@ -11,7 +11,7 @@ function Step2({ formData, updateFormData, onNext, onBack }) {
   const handleChange = (e) => {
     const value = e.target.value;
     setSelected(value);
-    updateFormData({ step2: value });
+    updateFormData({ Вывод_из_котельной: value });
   };
 
   const handleCustomLinkChange = (e) => {

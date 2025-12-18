@@ -7,7 +7,7 @@ const Step0 = ({ updateFormData }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         const selectedValue = e.target.step0.value;
-        updateFormData({ step0: selectedValue });
+        updateFormData({ Тип_дымоходной_системы: selectedValue });
         if (selectedValue === "Промышленная") {
             navigate('/industrial');
         } else if (selectedValue === "Поквартирная") {
@@ -19,7 +19,7 @@ const Step0 = ({ updateFormData }) => {
 
     return (
         <div>
-            <h3>Шаг 0: Тип дымоходной системы</h3>
+            <h3>Тип дымоходной системы</h3>
             <form onSubmit={handleSubmit}>
             
                 <label>

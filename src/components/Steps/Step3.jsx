@@ -24,7 +24,7 @@ function Step3({ formData, updateFormData, onNext, onBack }) {
         const selectedText = e.target.dataset.text;
         // Сохраняем ключ и ссылку на импорт (React превратит в URL)
         updateFormData({ 
-            step3_selection: selectedText,
+            Количество_котлов_и_расположение_котлов_и_тип_несущей_башни: selectedText,
             step3_image: selectedValue  // Для простоты используем ключ; ниже мапим на импорт
         });
     };
@@ -39,32 +39,25 @@ function Step3({ formData, updateFormData, onNext, onBack }) {
     };
 
     // Маппинг ключей на импорты (для получения src)
-    const imageMap = {
-        option1: img1,
-        option2: img12,
-        option3: img13,
-        option4: img14,
-        option5: img2,
-        option6: img21,
-        option7: img22,
-        option8: img23,
-        option9: img24,
-        option10: img3,
-        option11: img31,
-        option12: img32,
-        option13: img33,
-        option14: img4,
-        option15: img41,
-        option16: img42,
-        option17: img43,
-    };
-
-    // Функция для получения src по ключу (для preview в Step7)
-    const getImageSrc = (key) => imageMap[key] || null;
-
-    // Для сохранения в formData используем ключ, а на отображении — мап
-    // В handleChange: updateFormData({ step3_image_key: selectedValue });
-    // Но для простоты: сохраняем ключ, а в Step7 используем getImageSrc(formData.step3_image_key)
+    // const imageMap = {
+    //     option1: img1,
+    //     option2: img12,
+    //     option3: img13,
+    //     option4: img14,
+    //     option5: img2,
+    //     option6: img21,
+    //     option7: img22,
+    //     option8: img23,
+    //     option9: img24,
+    //     option10: img3,
+    //     option11: img31,
+    //     option12: img32,
+    //     option13: img33,
+    //     option14: img4,
+    //     option15: img41,
+    //     option16: img42,
+    //     option17: img43,
+    // };
 
     return (
         <div>

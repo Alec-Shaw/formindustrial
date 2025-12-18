@@ -1,19 +1,19 @@
 import React from 'react';
 
-const Step1 = ({ formData, updateFormData, onNext, onBack }) => {
+const Step4 = ({ formData, updateFormData, onNext, onBack }) => {
     const handleChange = (e) => {
         const value = e.target.value;
        // const question = e.target.dataset.question;  // Читаем data-question из input
        
         updateFormData({ 
-            Подключение_вывод_котлов: value,  
+            Что_требуется: value,  
         });
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Валидация по старому ключу (formData.step1)
-        if (!formData.Подключение_вывод_котлов) {
+        // Валидация по старому ключу (formData.step4)
+        if (!formData.Что_требуется) {
             alert('Выберите вариант!');
             return;
         }
@@ -22,18 +22,18 @@ const Step1 = ({ formData, updateFormData, onNext, onBack }) => {
 
     return (
         <div>
-            <h4>Подключение, вывод котлов</h4>
+            <h4>Что требуется</h4>
             <form onSubmit={handleSubmit}>
                 <label>
                     <input 
                         type="radio" 
                         id="option1" 
-                        name="step1" 
-                        value="На каждый котел свой отдельный дымоход" 
+                        name="step4" 
+                        value="Только АЭ без чертежа" 
                         onChange={handleChange} 
                     />
                     
-                        На каждый котел свой отдельный дымоход
+                        Только АЭ без чертежа
                     
                 </label>
                 <br />
@@ -41,12 +41,12 @@ const Step1 = ({ formData, updateFormData, onNext, onBack }) => {
                     <input 
                         type="radio" 
                         id="option2" 
-                        name="step1" 
-                        value="Несколько котлов в один вертикальный дымоход" 
+                        name="step4" 
+                        value="Только чертеж без АЭ" 
                         onChange={handleChange} 
                     />
                     
-                        Несколько котлов в один вертикальный дымоход
+                       Только чертеж без АЭ
                    
                 </label>
                 <br />
@@ -54,12 +54,12 @@ const Step1 = ({ formData, updateFormData, onNext, onBack }) => {
                     <input 
                         type="radio" 
                         id="option3" 
-                        name="step1" 
-                        value="Несколько котлов с общим горизонтальным участком"                     
+                        name="step4" 
+                        value="АЭ + Чертеж"                     
                         onChange={handleChange} 
                     />
                     
-                        Несколько котлов с общим горизонтальным участком
+                        АЭ + Чертеж
                     </label>
                 
                 <br />
@@ -70,4 +70,4 @@ const Step1 = ({ formData, updateFormData, onNext, onBack }) => {
     );
 };
 
-export default Step1;
+export default Step4;

@@ -8,7 +8,9 @@
 label {
   display: flex;
 }
-
+.quest{
+  margin-bottom: 10px;
+}
 .img_choos {
   display: flex;
   flex-direction: column;
@@ -20,6 +22,15 @@ label {
 }
 .img_size {
   width: 200px;
+}
+
+.img_size_2 {
+  width: 450px;
+}
+
+.img_right {
+  display: flex;
+  justify-content: space-between;
 }
 
 .img_border {
