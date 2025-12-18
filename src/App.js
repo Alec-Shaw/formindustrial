@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-route
 import Step0 from './components/Steps/Step0';
 import IndustrialBranch from './components/Branches/IndustrialBranch';
 
-function App() {
+const App = () =>  {
     const [formData, setFormData] = useState({}); // Глобальное состояние ответов
 
     const updateFormData = (newData) => {
@@ -16,7 +16,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Step0 updateFormData={updateFormData} />} />
                     <Route path="/industrial" element={<IndustrialBranch formData={formData} updateFormData={updateFormData} />} />
-                    {/* Добавь роуты для других веток */}
+                    {/* Роуты для других веток */}
                 </Routes>
             </div>
         </Router>

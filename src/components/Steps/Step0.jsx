@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function Step0({ updateFormData }) {
+const Step0 = ({ updateFormData }) => {
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
