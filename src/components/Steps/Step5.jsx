@@ -1,28 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useFormValidation } from '../hooks/useFormValidation';  
 
 const Step5 = ({ formData, updateFormData, onNext, onBack }) => {
+    const { errors, validateAll, clearError } = useFormValidation();
+
+    const [selectedKotel, setSelectedKotel] = useState('');
+
     const handleChange = (e) => {
         const value = e.target.value;
-        
-       // const question = e.target.dataset.question;  // Читаем data-question из input
-       
-        updateFormData({ 
-            Одинаковые_или_разные_котлы: value,  
-        });
-        
+        setSelectedKotel(value);
+        updateFormData({ Одинаковые_или_разные_котлы: value });
+        clearError('котлы'); 
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Получаем value синхронно (из формы)
-        const selectedValue = e.target.querySelector('input[name="step5"]:checked')?.value || '';
-        console.log('Step5 submit: selectedValue =', selectedValue);  // Лог для дебага
-        if (!selectedValue) {
-            alert('Выберите вариант!');
+        // Validation fields object
+        const fields = {
+            котлы: selectedKotel,  
+            котлы_rules: { required: true },  
+        };
+
+        const isValid = validateAll(fields);
+        if (!isValid) {
+
             return;
         }
-        // Передаём value в onNext — переход с условием
-        onNext(selectedValue);  
+        
+        onNext(selectedKotel); // We pass the value to onNext - a transition with a condition
     };
 
     return (
@@ -30,31 +35,31 @@ const Step5 = ({ formData, updateFormData, onNext, onBack }) => {
             <h4>Одинаковые или разные котлы</h4>
             <form onSubmit={handleSubmit}>
                 <label>
-                    <input 
-                        type="radio" 
-                        id="option1" 
-                        name="step5" 
-                        value="Все котлы одинаковые" 
-                        onChange={handleChange} 
+                    <input
+                        type="radio"
+                        id="option1"
+                        name="step5"
+                        value="Все котлы одинаковые"
+                        checked={selectedKotel === "Все котлы одинаковые"}
+                        onChange={handleChange}
                     />
                     Все котлы одинаковые
-                    
                 </label>
                 <br />
                 <label>
-                    <input 
-                        type="radio" 
-                        id="option2" 
-                        name="step5" 
-                        value="Разные котлы" 
-                        onChange={handleChange} 
+                    <input
+                        type="radio"
+                        id="option2"
+                        name="step5"
+                        value="Разные котлы"
+                        checked={selectedKotel === "Разные котлы"}
+                        onChange={handleChange}
                     />
-                    
-                       Разные котлы
-                   
+                    Разные котлы
                 </label>
                 <br />
                 
+                {errors.котлы && <p className="error">{errors.котлы}</p>}
                 <br />
                 {onBack && <button type="button" onClick={onBack}>Назад</button>}
                 <button type="submit">Далее</button>

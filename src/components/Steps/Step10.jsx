@@ -18,24 +18,39 @@ import img41 from '../../img/41.jpg';
 import img42 from '../../img/42.jpg';
 import img43 from '../../img/43.jpg';
 
-function Step77({ formData, updateFormData, onBack, onSubmit }) {
-    const handleChange = (e) => {
-        updateFormData({ page1_panel: e.target.value });
+function Step10({ formData, updateFormData, onBack, onNext }) {
+    
+    const handleExpandedChange = (e) => {
+        const value = e.target.value;
+        updateFormData({
+            Вытянутая_развернутая_длина: value,
+        });
+    };
+
+    const handleElongatedChange = (e) => {
+        const value = e.target.value;  
+        updateFormData({
+            От_котла_до_МК_по_прямой_Lпрям: value,
+        });
+    };
+
+    const handleApproximatelyChange = (e) => {
+        const value = e.target.value;
+        updateFormData({
+            Примерно_не_более_Lпримерн: value,
+        });
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (!formData.page1_panel) {
-            alert('Выберите вариант!');
+        // Валидация: проверяем все ключевые поля (адаптируйте по необходимости)
+        if (!formData.Вытянутая_развернутая_длина || !formData.От_котла_до_МК_по_прямой_Lпрям || !formData.Примерно_не_более_Lпримерн) {
+            alert('Заполните один из вариантов!');
             return;
-        }
-
-        if (onSubmit && typeof onSubmit === 'function') {
-            onSubmit();  // Отправка формы
-        } else {
-            console.error('onSubmit не является функцией');  // Дебаг, если что
-        }
+        }     
+       
     };
+
 
     // Маппинг ключей на импорты для отображения изображения
     const imageMap = {
@@ -63,7 +78,7 @@ function Step77({ formData, updateFormData, onBack, onSubmit }) {
 
     return (
         <div>
-            <h4>Шаг 7: Page1 Panel — Панель управления</h4>
+            <h4>Длина, L (заполните один вариант)</h4>
             
             {/* Отображение выбранного изображения из шага 3 */}
             {selectedImageSrc ? (
@@ -81,19 +96,37 @@ function Step77({ formData, updateFormData, onBack, onSubmit }) {
             )}
             
             <form onSubmit={handleSubmit}>
+                <div className='quest'>Всего ('вытянутая развернутая длина') Lврд</div>
                 <label>
-                    <input type="radio" name="page1_panel" value="Автоматическая" onChange={handleChange} />
-                    Автоматическая панель
+                    <input
+                        type="text"
+                        id="expanded"
+                        name="expanded"
+                        onChange={handleExpandedChange}
+                        placeholder="Введите значение"
+                    />
                 </label>
                 <br />
+                    <div className='quest'>От котла до МК по прямой Lпрям (требуются размеры  RBAM)</div>
                 <label>
-                    <input type="radio" name="page1_panel" value="Ручная" onChange={handleChange} />
-                    Ручная панель
+                    <input
+                        type="text"
+                        id="elongate"
+                        name="elongate"
+                        onChange={handleElongatedChange}
+                        placeholder="Введите значение"
+                    />
                 </label>
                 <br />
+                <div className='quest'>Примерно не более Lпримерн</div>
                 <label>
-                    <input type="radio" name="page1_panel" value="С датчиками" onChange={handleChange} />
-                    С дополнительными датчиками
+                    <input
+                        type="text"
+                        id="approximately"
+                        name="approximately"
+                        onChange={handleApproximatelyChange}
+                        placeholder="Введите значение"
+                    />
                 </label>
                 <br />
                 {onBack && <button type="button" onClick={onBack}>Назад</button>}
@@ -103,4 +136,4 @@ function Step77({ formData, updateFormData, onBack, onSubmit }) {
     );
 }
 
-export default Step77;
+export default Step10;

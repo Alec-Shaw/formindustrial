@@ -5,6 +5,13 @@
 
 }
 
+.error {
+  color: red;
+  font-size: 0.8em;
+  margin-top: 2px;
+  
+}
+
 label {
   display: flex;
 }

@@ -9,18 +9,18 @@ import Step5 from '../Steps/Step5';
 import Step6 from '../Steps/Step6';
 import Step7 from '../Steps/Step7';
 import Step8 from '../Steps/Step8';
+import Step9 from '../Steps/Step9';
 import Step77 from '../Steps/Step77';
-//import Step8 from '../Steps/Step8';
-//import Step9 from '../Steps/Step9';
 //import Step10 from '../Steps/Step10';
+
 function IndustrialBranch({ formData, updateFormData }) {
     const [currentStep, setCurrentStep] = useState('step1');
-    const [history, setHistory] = useState(['step1']);  // История: push на onNext, pop на onBack
+    const [history, setHistory] = useState(['step1']);  //History: push to onNext, to onBack
     const navigate = useNavigate();
-    // Утилита для push в историю (избегаем дубликатов)
+    // Utility for pushing to history
     const updateHistory = (newStep) => {
         setHistory(prev => {
-            if (prev[prev.length - 1] === newStep) return prev;  // Нет петель
+            if (prev[prev.length - 1] === newStep) return prev;  
             return [...prev, newStep];
         });
     };
@@ -38,12 +38,13 @@ function IndustrialBranch({ formData, updateFormData }) {
         if (conditionKey) {
             const answer = currentAnswer || formData[conditionKey] || '';
             console.log('getNextStep:', conditionKey, 'answer =', answer);  
+            
+            // conditions for branching
 
             if (conditionKey === 'step5' && answer.includes('Разные котлы')) {
-                nextStep = 'step77';  // Skip
+                nextStep = 'step77';  
             }
-            // Для 'Все котлы одинаковые' — default 'step6'
-            // Добавьте для step3/step4
+            
         }
 
         setCurrentStep(nextStep);
@@ -54,19 +55,19 @@ function IndustrialBranch({ formData, updateFormData }) {
     const handleBack = () => {
         setHistory(prev => {
             const newHistory = [...prev];
-            newHistory.pop();  // Удаляем текущий
-            const prevStep = newHistory[newHistory.length - 1] || 'step1';  // Fallback на начало
+            newHistory.pop();  
+            const prevStep = newHistory[newHistory.length - 1] || 'step1';  
             setCurrentStep(prevStep);
             return newHistory;
         });
     };
     const handleSubmit = () => {
-        // Объединение данных и отправка в Google Apps Script
+        
         const formDataArray = Object.keys(formData)
             .filter(key => {
-                // Исключаем технические ключи, которые не нужно отправлять в таблицу
-                if (key === 'step3_image') return false;  // Не отправляем ключ изображения
-                return formData[key] && formData[key].trim() !== '';  // Только заполненные
+                // We exclude technical keys that do not need to be sent to the table
+                if (key === 'step3_image') return false;  
+                return formData[key] && formData[key].trim() !== '';  // Only filled ones
             })
             .map(key => ({
                 step: key,
@@ -79,7 +80,7 @@ function IndustrialBranch({ formData, updateFormData }) {
             .then(response => response.json())
             .then(result => {
                 alert(result.message || 'Отправлено!');
-                navigate('/complete'); // Или сброс
+                navigate('/complete'); 
             })
             .catch(error => alert('Ошибка: ' + error.message));
 
@@ -92,8 +93,9 @@ function IndustrialBranch({ formData, updateFormData }) {
         step4: <Step4 formData={formData} updateFormData={updateFormData} onNext={onNextWithHistory('step5')} onBack={handleBack} />,
         step5: <Step5 formData={formData} updateFormData={updateFormData} onNext={getNextStep('step6', 'step5')} onBack={handleBack} />,
         step6: <Step6 formData={formData} updateFormData={updateFormData} onNext={getNextStep('step7', 'step6')} onBack={handleBack} />,
-        step7: <Step7 formData={formData} updateFormData={updateFormData} onNext={getNextStep('step8', 'step7')} onBack={handleBack} />,
-        step8: <Step8 formData={formData} updateFormData={updateFormData} onNext={getNextStep('step77', 'step8')} onBack={handleBack} />,
+        step7: <Step7 formData={formData} updateFormData={updateFormData} onNext={onNextWithHistory('step8')} onBack={handleBack} />,
+        step8: <Step8 formData={formData} updateFormData={updateFormData} onNext={onNextWithHistory('step9')} onBack={handleBack} />,
+        step9: <Step9 formData={formData} updateFormData={updateFormData} onNext={getNextStep('step77', 'step8')} onBack={handleBack} />,
         step77: <Step77 formData={formData} updateFormData={updateFormData} onSubmit={handleSubmit} onBack={handleBack} />,
         // step8: <Step8 formData={formData} updateFormData={updateFormData} onNext={() => setCurrentStep('step9')} onBack={() => setCurrentStep('step77')} />,
         // step9: <Step9 formData={formData} updateFormData={updateFormData} onNext={() => setCurrentStep('step10')} onBack={() => setCurrentStep('step8')} />,
