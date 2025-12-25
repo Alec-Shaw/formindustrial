@@ -10,8 +10,11 @@ import Step6 from '../Steps/Step6';
 import Step7 from '../Steps/Step7';
 import Step8 from '../Steps/Step8';
 import Step9 from '../Steps/Step9';
+import Step10 from '../Steps/Step10';
+import Step11 from '../Steps/Step11';
+import Step12 from '../Steps/Step12';
+import Step13 from '../Steps/Step13';
 import Step77 from '../Steps/Step77';
-//import Step10 from '../Steps/Step10';
 
 function IndustrialBranch({ formData, updateFormData }) {
     const [currentStep, setCurrentStep] = useState('step1');
@@ -43,6 +46,18 @@ function IndustrialBranch({ formData, updateFormData }) {
 
             if (conditionKey === 'step5' && answer.includes('Разные котлы')) {
                 nextStep = 'step77';  
+            } 
+
+            if (conditionKey === 'step9' && answer.includes('вытянутая развернутая длина')) {
+                nextStep = 'step10';  
+            }
+
+            if (conditionKey === 'step9' && answer.includes('От котла до МК по прямой Lпрям')) {
+                nextStep = 'step11';  
+            } 
+
+            if (conditionKey === 'step9' && answer.includes('Примерно не более Lпримерн')) {
+                nextStep = 'step12';  
             }
             
         }
@@ -95,7 +110,11 @@ function IndustrialBranch({ formData, updateFormData }) {
         step6: <Step6 formData={formData} updateFormData={updateFormData} onNext={getNextStep('step7', 'step6')} onBack={handleBack} />,
         step7: <Step7 formData={formData} updateFormData={updateFormData} onNext={onNextWithHistory('step8')} onBack={handleBack} />,
         step8: <Step8 formData={formData} updateFormData={updateFormData} onNext={onNextWithHistory('step9')} onBack={handleBack} />,
-        step9: <Step9 formData={formData} updateFormData={updateFormData} onNext={getNextStep('step77', 'step8')} onBack={handleBack} />,
+        step9: <Step9 formData={formData} updateFormData={updateFormData} onNext={getNextStep('step10', 'step9')} onBack={handleBack} />,
+        step10: <Step10 formData={formData} updateFormData={updateFormData} onNext={onNextWithHistory('step13')} onBack={handleBack} />,
+        step11: <Step11 formData={formData} updateFormData={updateFormData} onNext={onNextWithHistory('step13')} onBack={handleBack} />,
+        step12: <Step12 formData={formData} updateFormData={updateFormData} onNext={onNextWithHistory('step13')} onBack={handleBack} />,
+        step13: <Step13 formData={formData} updateFormData={updateFormData} onNext={onNextWithHistory('step14')} onBack={handleBack} />,
         step77: <Step77 formData={formData} updateFormData={updateFormData} onSubmit={handleSubmit} onBack={handleBack} />,
         // step8: <Step8 formData={formData} updateFormData={updateFormData} onNext={() => setCurrentStep('step9')} onBack={() => setCurrentStep('step77')} />,
         // step9: <Step9 formData={formData} updateFormData={updateFormData} onNext={() => setCurrentStep('step10')} onBack={() => setCurrentStep('step8')} />,

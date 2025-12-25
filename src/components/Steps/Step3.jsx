@@ -18,7 +18,7 @@ import img41 from '../../img/41.jpg';
 import img42 from '../../img/42.jpg';
 import img43 from '../../img/43.jpg';
 
-function Step3({ formData, updateFormData, onNext, onBack }) {
+const Step3 = ({ formData, updateFormData, onNext, onBack }) => {
     const { errors, validateAll, clearError } = useFormValidation();
 
     const [selectedValue, setSelectedValue] = useState('');

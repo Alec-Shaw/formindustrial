@@ -5,7 +5,7 @@ import img2 from '../../img/po_stene.jpg';
 import img3 from '../../img/metall.jpg';
 import img4 from '../../img/himself.jpg';
 
-function Step2({ formData, updateFormData, onNext, onBack }) {
+const Step2 = ({ formData, updateFormData, onNext, onBack }) => {
     const { errors, validateAll, clearError } = useFormValidation();
 
     const [selected, setSelected] = useState('');

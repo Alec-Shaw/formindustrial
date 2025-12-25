@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useFormValidation } from '../hooks/useFormValidation';  
 
-const Step10 = ({ formData, updateFormData, onBack, onNext }) => {
+const Step12 = ({ formData, updateFormData, onBack, onNext }) => {
     const { errors, validateAll, clearError } = useFormValidation();
    
     const [expandedLength, setExpandedLength] = useState('');
@@ -10,39 +10,40 @@ const Step10 = ({ formData, updateFormData, onBack, onNext }) => {
     const handleInBoilerRoom = (e) => {
         const value = e.target.value;
         setExpandedLength(value);
-        updateFormData({ Длина_развернутая_в_котельной: value });
-        clearError('inBoilerRoom');  
+        updateFormData({ Длина_примерная_в_котельной: value });
+        clearError('inBoilerRoom'); 
     };
 
     const handleOutBoilerRoom = (e) => {
         const value = e.target.value;
         setStraightLength(value);
-        updateFormData({ Длина_развернутая_на_улице: value });
+        updateFormData({ Длина_примерная_на_улице: value });
         clearError('outBoilerRoom');
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
         
+        // Объект полей для валидации (на английском для consistency с JSX)
         const fields = {
-            inBoilerRoom: expandedLength,  
-            inBoilerRoom_rules: { required: true, number: true },  
-            outBoilerRoom: straightLength,  
-            outBoilerRoom_rules: { required: true, number: true }, 
+            inBoilerRoom: expandedLength,  // В котельной
+            inBoilerRoom_rules: { required: true, number: true },  // Обязательно + число
+            outBoilerRoom: straightLength,  // На улице
+            outBoilerRoom_rules: { required: true, number: true },  // Обязательно + число
         };
 
         const isValid = validateAll(fields);
         if (!isValid) {
-            
+            // Нет alert — ошибки под полями
             return;
         }
         
-        onNext();  
+        onNext();  // Переход
     };
 
     return (
         <div>
-            <h4>Длина развернутая в котельной или на улице</h4>
+            <h4>Длина примерная в котельной или на улице</h4>
             
             <form onSubmit={handleSubmit}>
                 <div className='quest'>В котельной</div>
@@ -51,7 +52,7 @@ const Step10 = ({ formData, updateFormData, onBack, onNext }) => {
                         type="text"
                         id="expanded"
                         name="expanded"
-                        value={expandedLength}  
+                        value={expandedLength}  // Локальное состояние
                         onChange={handleInBoilerRoom}
                         placeholder="Введите значение"
                     />
@@ -79,4 +80,4 @@ const Step10 = ({ formData, updateFormData, onBack, onNext }) => {
     );
 };
 
-export default Step10;
+export default Step12;

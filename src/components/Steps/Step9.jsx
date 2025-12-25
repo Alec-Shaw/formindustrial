@@ -19,61 +19,75 @@ import img42 from '../../img/42.jpg';
 import img43 from '../../img/43.jpg';
 import img_pic from '../../img/pic.jpg';
 
-function Step9({ formData, updateFormData, onBack, onNext }) {
+const Step9 = ({ formData, updateFormData, onBack, onNext }) => {
     const { errors, setErrors, validateField, clearError } = useFormValidation(); 
 
     
     const [expandedLength, setExpandedLength] = useState( '');
     const [straightLength, setStraightLength] = useState('');
     const [approxLength, setApproxLength] = useState('');
+    const [selectedText, setSelectedText] = useState('');
 
 
     const handleExpandedChange = (e) => {
         const value = e.target.value;
+        const selectedText = e.target.dataset.text;
+        setSelectedText(selectedText);
         setExpandedLength(value);
-        updateFormData({ Вытянутая_развернутая_длина: value });
+        updateFormData({ 
+            Вытянутая_развернутая_длина: value,
+            step9_text: selectedText
+         });
         clearError('expandedLength');
     };
 
     const handleElongatedChange = (e) => {
         const value = e.target.value;
+        const selectedText = e.target.dataset.text;
+        setSelectedText(selectedText);
         setStraightLength(value);
-        updateFormData({ От_котла_до_МК_по_прямой_Lпрям: value });
+        updateFormData({ 
+            От_котла_до_МК_по_прямой_Lпрям: value,
+            step9_text: selectedText
+         });
         clearError('straightLength');
     };
 
     const handleApproximatelyChange = (e) => {
         const value = e.target.value;
+        const selectedText = e.target.dataset.text;
+        setSelectedText(selectedText);
         setApproxLength(value);
-        updateFormData({ Примерно_не_более_Lпримерн: value });
+        updateFormData({ 
+            Примерно_не_более_Lпримерн: value,
+            step9_text: selectedText
+         });
         clearError('approxLength');
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
         
-        const expandedError = validateField('expandedLength', expandedLength, { number: true });
-        const straightError = validateField('straightLength', straightLength, { number: true });
-        const approxError = validateField('approxLength', approxLength, { number: true });
+        const expandedError = expandedLength.trim() ? validateField('expandedLength', expandedLength, { number: true }) : '';
+        const straightError = straightLength.trim() ? validateField('straightLength', straightLength, { number: true }) : '';
+        const approxError = approxLength.trim() ? validateField('approxLength', approxLength, { number: true }) : '';
 
         
-        if (expandedError) setErrors(prev => ({ ...prev, expandedLength: expandedError }));
-        if (straightError) setErrors(prev => ({ ...prev, straightLength: straightError }));
-        if (approxError) setErrors(prev => ({ ...prev, approxLength: approxError }));
+        const newErrors = {};
+        if (expandedError) newErrors.expandedLength = expandedError;
+        if (straightError) newErrors.straightLength = straightError;
+        if (approxError) newErrors.approxLength = approxError;
+        setErrors(newErrors);
 
-        
-        if (!expandedLength.trim() && !straightLength.trim() && !approxLength.trim()) {
-            setErrors(prev => ({ ...prev, general: 'Заполните хотя бы один вариант длины!' }));
+        const hasValidField = (expandedLength.trim() && !expandedError) || (straightLength.trim() && !straightError) || (approxLength.trim() && !approxError);
+        if (!hasValidField) {
+            setErrors(prev => ({ ...prev, general: 'Заполните хотя бы одно поле корректным числом!' }));
             return;
         }
-      
+
         setErrors(prev => ({ ...prev, general: '' }));
 
-        clearError('expandedLength');
-        clearError('straightLength');
-        clearError('approxLength');
-
-        onNext();  
+        onNext(selectedText);  
     };
 
     // Mapping keys to imports for image display
@@ -133,6 +147,7 @@ function Step9({ formData, updateFormData, onBack, onNext }) {
                         value={expandedLength}  
                         onChange={handleExpandedChange}
                         placeholder="Введите значение"
+                        data-text="Всего ('вытянутая развернутая длина') Lврд"
                     />
                 </label>
                 {errors.expandedLength && <p className="error">{errors.expandedLength}</p>}
@@ -146,6 +161,7 @@ function Step9({ formData, updateFormData, onBack, onNext }) {
                         value={straightLength}
                         onChange={handleElongatedChange}
                         placeholder="Введите значение"
+                        data-text="От котла до МК по прямой Lпрям"
                     />
                 </label>
                 {errors.straightLength && <p className="error">{errors.straightLength}</p>}
@@ -159,6 +175,7 @@ function Step9({ formData, updateFormData, onBack, onNext }) {
                         value={approxLength}
                         onChange={handleApproximatelyChange}
                         placeholder="Введите значение"
+                        data-text="Примерно не более Lпримерн"
                     />
                 </label>
                 {errors.approxLength && <p className="error">{errors.approxLength}</p>}
