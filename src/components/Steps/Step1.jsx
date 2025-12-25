@@ -10,15 +10,15 @@ const Step1 = ({ formData, updateFormData, onNext, onBack }) => {
         const value = e.target.value;
         setSelectedConnection(value);
         updateFormData({ Подключение_вывод_котлов: value });
-        clearError('подключение');  
+        clearError('connection');  
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
         // Validation fields object
         const fields = {
-            подключение: selectedConnection,  
-            подключение_rules: { required: true },  
+            connection: selectedConnection,  
+            connection_rules: { required: true },  
         };
 
         const isValid = validateAll(fields);
@@ -68,7 +68,7 @@ const Step1 = ({ formData, updateFormData, onNext, onBack }) => {
                     Несколько котлов с общим горизонтальным участком
                 </label>
                 
-                {errors.подключение && <p className="error">{errors.подключение}</p>}
+                {errors.connection && <p className="error">{errors.connection}</p>}
                 <br />
                 {onBack && <button type="button" onClick={onBack}>Назад</button>}
                 <button type="submit">Далее</button>

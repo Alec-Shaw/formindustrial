@@ -14,6 +14,9 @@ import Step10 from '../Steps/Step10';
 import Step11 from '../Steps/Step11';
 import Step12 from '../Steps/Step12';
 import Step13 from '../Steps/Step13';
+import Step14 from '../Steps/Step14';
+import Step15 from '../Steps/Step15';
+import Step16 from '../Steps/Step16';
 import Step77 from '../Steps/Step77';
 
 function IndustrialBranch({ formData, updateFormData }) {
@@ -45,8 +48,20 @@ function IndustrialBranch({ formData, updateFormData }) {
             // conditions for branching
 
             if (conditionKey === 'step5' && answer.includes('Разные котлы')) {
-                nextStep = 'step77';  
+                nextStep = 'step16';  
             } 
+
+            // if (conditionKey === 'step6' && answer.includes('Другой котел')) {
+            //     nextStep = 'step16';  
+            // } 
+            if (conditionKey === 'step6') {
+                if (answer.includes('Другой котел') && formData.Что_требуется === 'Только АЭ без чертежа') {
+                    nextStep = 'step16';  // Ваше текущее условие
+                } else if (formData.Что_требуется === 'Только чертеж без АЭ') {  // Новое условие от Step4
+                    nextStep = 'step17';  // Переход на step17, если в Step4 "АЭ + Чертеж"
+                }
+                // Для других — default
+            }
 
             if (conditionKey === 'step9' && answer.includes('вытянутая развернутая длина')) {
                 nextStep = 'step10';  
@@ -82,6 +97,7 @@ function IndustrialBranch({ formData, updateFormData }) {
             .filter(key => {
                 // We exclude technical keys that do not need to be sent to the table
                 if (key === 'step3_image') return false;  
+                if (key === 'step9_text') return false;  
                 return formData[key] && formData[key].trim() !== '';  // Only filled ones
             })
             .map(key => ({
@@ -115,6 +131,9 @@ function IndustrialBranch({ formData, updateFormData }) {
         step11: <Step11 formData={formData} updateFormData={updateFormData} onNext={onNextWithHistory('step13')} onBack={handleBack} />,
         step12: <Step12 formData={formData} updateFormData={updateFormData} onNext={onNextWithHistory('step13')} onBack={handleBack} />,
         step13: <Step13 formData={formData} updateFormData={updateFormData} onNext={onNextWithHistory('step14')} onBack={handleBack} />,
+        step14: <Step14 formData={formData} updateFormData={updateFormData} onNext={onNextWithHistory('step15')} onBack={handleBack} />,
+        step15: <Step15 formData={formData} updateFormData={updateFormData} onNext={onNextWithHistory('step77')} onBack={handleBack} />,
+        step16: <Step16 formData={formData} updateFormData={updateFormData} onNext={onNextWithHistory('step9')} onBack={handleBack} />,
         step77: <Step77 formData={formData} updateFormData={updateFormData} onSubmit={handleSubmit} onBack={handleBack} />,
         // step8: <Step8 formData={formData} updateFormData={updateFormData} onNext={() => setCurrentStep('step9')} onBack={() => setCurrentStep('step77')} />,
         // step9: <Step9 formData={formData} updateFormData={updateFormData} onNext={() => setCurrentStep('step10')} onBack={() => setCurrentStep('step8')} />,

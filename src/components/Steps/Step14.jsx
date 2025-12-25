@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useFormValidation } from '../hooks/useFormValidation';  
 
-const Step13 = ({ formData, updateFormData, onBack, onNext }) => {
+const Step14 = ({ formData, updateFormData, onBack, onNext }) => {
     const { errors, validateAll, clearError } = useFormValidation();
    
     const [valueIn90Degree, setValueIn90Degree] = useState('');
@@ -83,7 +83,7 @@ const Step13 = ({ formData, updateFormData, onBack, onNext }) => {
 
     return (
         <div>
-            <h4>Количество поворотов</h4>
+            <h4>Высота</h4>
             
             <form onSubmit={handleSubmit}>
                 <div className='quest'>В котельной, шт</div>
@@ -174,4 +174,4 @@ const Step13 = ({ formData, updateFormData, onBack, onNext }) => {
     );
 };
 
-export default Step13;
+export default Step14;

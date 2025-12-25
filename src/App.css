@@ -5,6 +5,18 @@
 
 }
 
+.degree {
+  margin-right: 10px;
+}
+
+.table_boiler {
+  width: 300px;
+  margin-right: 10px;
+}
+
+.width_lable {
+  height: 25px;
+}
 .error {
   color: red;
   font-size: 0.8em;
@@ -14,6 +26,7 @@
 
 label {
   display: flex;
+  margin-bottom: 10px;
 }
 .quest{
   margin-bottom: 10px;

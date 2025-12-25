@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 export const useFormValidation = () => {
-    const [errors, setErrors] = useState({});  // { fieldName: 'Ошибка...' }
+    const [errors, setErrors] = useState({});  
 
     // Универсальная функция валидации поля
     const validateField = (fieldName, value, rules = {}) => {
@@ -9,6 +9,8 @@ export const useFormValidation = () => {
 
         if (rules.required && (!value || value.trim() === '')) {
             error = 'Это поле обязательно для заполнения';
+        } else if (rules.oneof && (!value || value.trim() === '')) {
+            error = 'Заполните хотябы одно из полей';
         } else if (rules.minLength && value.length < rules.minLength) {
             error = `Минимум ${rules.minLength} символов`;
         } else if (rules.number && (isNaN(Number(value)) || Number(value) <= 0)) {
