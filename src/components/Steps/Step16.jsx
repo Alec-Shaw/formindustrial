@@ -21,15 +21,16 @@ const Step16 = ({ formData, updateFormData, onNext, onBack }) => {
         fuelType: '',
         customFuel: '',
         heatingCapacity: '',
-        underpressure: '',
         powerMin: '',
         powerMax: '',
         oxigenMin: '',
         oxigenMax: '',
+        flow: '',
         flowMin: '',
         flowMax: '',
         degreeMin: '',
         degreeMax: '',
+        underpressure: '',
         pressureMin: '',
         pressureMax: '',
         pipeBranch: '',
@@ -69,6 +70,9 @@ const Step16 = ({ formData, updateFormData, onNext, onBack }) => {
       fields[`underpressure_${i}`] = boiler.underpressure;
       fields[`underpressure_${i}_rules`] = { required: true };
 
+      fields[`flow_${i}`] = boiler.flow;
+      fields[`flow_${i}_rules`] = { required: true };
+
       if (boiler.fuelType === 'Свой вариант') {
         fields[`customFuel_${i}`] = boiler.customFuel;
         fields[`customFuel_${i}_rules`] = { required: true };
@@ -87,6 +91,7 @@ const Step16 = ({ formData, updateFormData, onNext, onBack }) => {
       fields[`oxigenMin_${i}_rules`] = { required: true, number: true };
       fields[`oxigenMax_${i}`] = boiler.oxigenMax;
       fields[`oxigenMax_${i}_rules`] = { required: true, number: true };
+      
 
       fields[`flowMin_${i}`] = boiler.flowMin;
       fields[`flowMin_${i}_rules`] = { required: true, number: true };
@@ -132,7 +137,7 @@ const Step16 = ({ formData, updateFormData, onNext, onBack }) => {
 
     return (
       <div key={boilerNum} style={{ border: '1px solid #ccc', padding: '20px', marginBottom: '20px', borderRadius: '8px' }}>
-        <h5 style={{ marginTop: 0 }}>Котел {boilerNum}</h5>
+        <h4 style={{ marginTop: 0 }}>Котел {boilerNum}</h4>
 
         {/* Название котла */}
         <label>
@@ -146,14 +151,14 @@ const Step16 = ({ formData, updateFormData, onNext, onBack }) => {
         </label><br/>
 
         {/* Тип топлива */}
-        <label>
-          <span>Тип топлива</span><br/>
-          <label><input type="radio" name={`fuelType_${boilerNum}`} value="Газ" checked={boiler.fuelType === "Газ"} onChange={(e) => handleFieldChange(boilerNum, 'fuelType', e.target.value)} /> Газ</label>
-          <label><input type="radio" name={`fuelType_${boilerNum}`} value="Дизель" checked={boiler.fuelType === "Дизель"} onChange={(e) => handleFieldChange(boilerNum, 'fuelType', e.target.value)} /> Дизель</label>
-          <label><input type="radio" name={`fuelType_${boilerNum}`} value="Газ/дизел" checked={boiler.fuelType === "Газ/дизел"} onChange={(e) => handleFieldChange(boilerNum, 'fuelType', e.target.value)} /> Газ/дизель</label>
-          <label><input type="radio" name={`fuelType_${boilerNum}`} value="Дрова" checked={boiler.fuelType === "Дрова"} onChange={(e) => handleFieldChange(boilerNum, 'fuelType', e.target.value)} /> Дрова</label>
+        
+          <div className='quest'>Тип топлива</div>
+          <label><input type="radio" name={`fuelType_${boilerNum}`} value="Газ" checked={boiler.fuelType === "Газ"} onChange={(e) => handleFieldChange(boilerNum, 'fuelType', e.target.value)} /> Газ</label><br/>
+          <label><input type="radio" name={`fuelType_${boilerNum}`} value="Дизель" checked={boiler.fuelType === "Дизель"} onChange={(e) => handleFieldChange(boilerNum, 'fuelType', e.target.value)} /> Дизель</label><br/>
+          <label><input type="radio" name={`fuelType_${boilerNum}`} value="Газ/дизел" checked={boiler.fuelType === "Газ/дизел"} onChange={(e) => handleFieldChange(boilerNum, 'fuelType', e.target.value)} /> Газ/дизель</label><br/>
+          <label><input type="radio" name={`fuelType_${boilerNum}`} value="Дрова" checked={boiler.fuelType === "Дрова"} onChange={(e) => handleFieldChange(boilerNum, 'fuelType', e.target.value)} /> Дрова</label><br/>
           <label><input type="radio" name={`fuelType_${boilerNum}`} value="Уголь" checked={boiler.fuelType === "Уголь"} onChange={(e) => handleFieldChange(boilerNum, 'fuelType', e.target.value)} /> Уголь</label>
-          <label><input type="radio" name={`fuelType_${boilerNum}`} value="Свой вариант" checked={boiler.fuelType === "Свой вариант"} onChange={(e) => handleFieldChange(boilerNum, 'fuelType', e.target.value)} /> Свой вариант</label>
+          {/* <label><input type="radio" name={`fuelType_${boilerNum}`} value="Свой вариант" checked={boiler.fuelType === "Свой вариант"} onChange={(e) => handleFieldChange(boilerNum, 'fuelType', e.target.value)} /> Свой вариант</label>
           {boiler.fuelType === 'Свой вариант' && (
             <input
               type="text"
@@ -161,12 +166,11 @@ const Step16 = ({ formData, updateFormData, onNext, onBack }) => {
               value={boiler.customFuel || ''}
               onChange={(e) => handleFieldChange(boilerNum, 'customFuel', e.target.value)}
             />
-          )}
+          )} */}
           {errors[`fuelType_${boilerNum}`] && <p className="error">{errors[`fuelType_${boilerNum}`]}</p>}
           {errors[`customFuel_${boilerNum}`] && <p className="error">{errors[`customFuel_${boilerNum}`]}</p>}
-        </label><br/>
 
-        <h6>Параметры теплогенератора (Котел {boilerNum})</h6>
+        <h4>Параметры теплогенератора (Котел {boilerNum})</h4>
 
         {/* Номинальная теплопроизводительность */}
         <label>
@@ -194,15 +198,44 @@ const Step16 = ({ formData, updateFormData, onNext, onBack }) => {
         </label><br/>
 
         {/* Массовый/объемный поток - Мин/Макс */}
-        <label>
-          <span>Массовый поток дымовых газов (г/с, кг/с, кг/ч) или Объемный поток (куб.м/ч)</span><br/>
+        
+          <div className='quest'>Массовый поток дымовых газов (г/с, кг/с, кг/ч) или Объемный поток (куб.м/ч)</div>
+          <div style={{display: 'flex'}}>
+              <input
+                                    type="radio"
+                                    id="flow"
+                                    name="flow"
+                                    value="Массовый поток дымовых газов (г/с, кг/с, кг/ч)"
+                                    checked={boiler.flow === "Массовый поток дымовых газов (г/с, кг/с, кг/ч)"}
+                                    onChange={(e) => handleFieldChange(boilerNum, 'flow', e.target.value)}
+                                />
+                                Массовый поток дымовых газов (г/с, кг/с, кг/ч)
+          </div>
+          <br/>
+          <div style={{display: 'flex'}}>
+                <input
+                                    type="radio"
+                                    id="volumeFlow"
+                                    name="flow"
+                                    value="Объемный поток (куб.м/ч)"
+                                    checked={boiler.flow === "Объемный поток (куб.м/ч)"}
+                                    onChange={(e) => handleFieldChange(boilerNum, 'flow', e.target.value)}
+                                />
+                                Объемный поток (куб.м/ч)
+          </div>
+          <br/>
+          {(boiler.flow === 'Объемный поток (куб.м/ч)' || boiler.flow === 'Массовый поток дымовых газов (г/с, кг/с, кг/ч)') && (
+          <div>
           <span>Мин: <input type="text" style={{width: '80px'}} value={boiler.flowMin || ''} onChange={(e) => handleFieldChange(boilerNum, 'flowMin', e.target.value)} /></span>
           <span style={{marginLeft: '20px'}}>Макс: <input type="text" style={{width: '80px'}} value={boiler.flowMax || ''} onChange={(e) => handleFieldChange(boilerNum, 'flowMax', e.target.value)} /></span>
+          </div>
+          )}
           {errors[`flowMin_${boilerNum}`] && <p className="error">{errors[`flowMin_${boilerNum}`]}</p>}
           {errors[`flowMax_${boilerNum}`] && <p className="error">{errors[`flowMax_${boilerNum}`]}</p>}
-        </label><br/>
+        <br/>
 
         {/* Температура - Мин/Макс */}
+       
         <label>
           <span>Температура дымовых газов (°С)</span><br/>
           <span>Мин: <input type="text" style={{width: '80px'}} value={boiler.degreeMin || ''} onChange={(e) => handleFieldChange(boilerNum, 'degreeMin', e.target.value)} /></span>
@@ -212,7 +245,7 @@ const Step16 = ({ formData, updateFormData, onNext, onBack }) => {
         </label><br/>
 
         {/* Давление - Мин/Макс */}
-        <div className='quest'>Выберите один из вариантов </div>
+        <div className='quest'>Остаточное давление вентилятора (Па) или Требуемое разрежение (Па)</div>
         <div style={{display: 'flex'}}>
                                 <input
                                     type="radio"
@@ -241,6 +274,7 @@ const Step16 = ({ formData, updateFormData, onNext, onBack }) => {
                 <div>
                     <span>Мин: <input type="text" style={{ width: '80px' }} value={boiler.pressureMin || ''} onChange={(e) => handleFieldChange(boilerNum, 'pressureMin', e.target.value)} /></span>
                     <span style={{ marginLeft: '20px' }}>Макс: <input type="text" style={{ width: '80px' }} value={boiler.pressureMax || ''} onChange={(e) => handleFieldChange(boilerNum, 'pressureMax', e.target.value)} /></span>
+                   
                 </div>
                             )}
          
