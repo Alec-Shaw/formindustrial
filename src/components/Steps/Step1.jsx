@@ -44,7 +44,7 @@ const Step1 = ({ formData, updateFormData, onNext, onBack }) => {
                     На каждый котел свой отдельный дымоход
                 </label>
                 <br />
-                <label>
+                <label style={{ opacity: 0.5 }}>
                     <input
                         type="radio"
                         id="option2"
@@ -52,11 +52,13 @@ const Step1 = ({ formData, updateFormData, onNext, onBack }) => {
                         value="Несколько котлов в один вертикальный дымоход"
                         checked={selectedConnection === "Несколько котлов в один вертикальный дымоход"}
                         onChange={handleChange}
+                        disabled
+                        style={{ opacity: 0.5 }}
                     />
                     Несколько котлов в один вертикальный дымоход
                 </label>
                 <br />
-                <label>
+                <label style={{ opacity: 0.5 }}>
                     <input
                         type="radio"
                         id="option3"
@@ -64,6 +66,8 @@ const Step1 = ({ formData, updateFormData, onNext, onBack }) => {
                         value="Несколько котлов с общим горизонтальным участком"
                         checked={selectedConnection === "Несколько котлов с общим горизонтальным участком"}
                         onChange={handleChange}
+                        disabled
+                        style={{ opacity: 0.5 }}
                     />
                     Несколько котлов с общим горизонтальным участком
                 </label>

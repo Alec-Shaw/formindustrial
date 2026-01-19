@@ -25,8 +25,7 @@ const Step0 = ({ formData, updateFormData }) => {
         };
 
         const isValid = validateAll(fields);
-        if (!isValid) {
-            
+        if (!isValid) {           
             return;
         }
 
@@ -55,24 +54,28 @@ const Step0 = ({ formData, updateFormData }) => {
                     Промышленная
                 </label>
                 <br />
-                <label>
+                <label style={{ opacity: 0.5 }}>
                     <input 
                         type="radio" 
                         name="step0" 
                         value="Поквартирная" 
                         checked={selectedType === "Поквартирная"}
                         onChange={handleChange}
+                        disabled
+                        style={{ opacity: 0.5 }}
                     />
                     Поквартирная коллективная
                 </label>
                 <br />
-                <label>
+                <label style={{ opacity: 0.5 }}>
                     <input 
                         type="radio" 
                         name="step0" 
                         value="ДРОП" 
                         checked={selectedType === "ДРОП"}
                         onChange={handleChange}
+                        disabled
+                        style={{ opacity: 0.5 }}
                     />
                     ДРОП (конденсационная)
                 </label>

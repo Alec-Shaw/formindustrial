@@ -17,6 +17,15 @@ import Step13 from '../Steps/Step13';
 import Step14 from '../Steps/Step14';
 import Step15 from '../Steps/Step15';
 import Step16 from '../Steps/Step16';
+import Step17 from '../Steps/Step17';
+import Step18 from '../Steps/Step18';
+import Step19 from '../Steps/Step19';
+import Step20 from '../Steps/Step20';
+import Step21 from '../Steps/Step21';
+import Step22 from '../Steps/Step22';
+import Step23 from '../Steps/Step23';
+import Step24 from '../Steps/Step24';
+import Step25 from '../Steps/Step25';
 import Step77 from '../Steps/Step77';
 
 function IndustrialBranch({ formData, updateFormData }) {
@@ -46,21 +55,41 @@ function IndustrialBranch({ formData, updateFormData }) {
             console.log('getNextStep:', conditionKey, 'answer =', answer);  
             
             // conditions for branching
-
-            if (conditionKey === 'step5' && answer.includes('Разные котлы')) {
-                nextStep = 'step16';  
-            } 
+            
+             if (conditionKey === 'step5') {
+                 if (answer.includes('Разные котлы') && formData.Что_требуется === 'Только АЭ без чертежа') {
+                     nextStep = 'step16';  
+                 } 
+                 if (answer.includes('Разные котлы') && formData.Что_требуется === 'Только чертеж без АЭ') {
+                     nextStep = 'step22';  
+                 } 
+                 if (answer.includes('Разные котлы') && formData.Что_требуется === 'АЭ + Чертеж') {
+                     nextStep = 'step24';  
+                 } 
+             }
+            
 
             // if (conditionKey === 'step6' && answer.includes('Другой котел')) {
             //     nextStep = 'step16';  
             // } 
             if (conditionKey === 'step6') {
                 if (answer.includes('Другой котел') && formData.Что_требуется === 'Только АЭ без чертежа') {
-                    nextStep = 'step16';  // Ваше текущее условие
-                } else if (formData.Что_требуется === 'Только чертеж без АЭ') {  // Новое условие от Step4
-                    nextStep = 'step17';  // Переход на step17, если в Step4 "АЭ + Чертеж"
+                    nextStep = 'step16';  
+                } 
+                if (answer.includes('Другой котел') && formData.Что_требуется === 'Только чертеж без АЭ') {  // Новое условие от Step4
+                    nextStep = 'step22'; 
                 }
-                // Для других — default
+                
+            }
+
+            if (conditionKey === 'step7') {
+                // if (formData.Что_требуется === 'Только АЭ без чертежа') {
+                //     nextStep = 'step8';  
+                // } 
+                if (formData.Что_требуется === 'Только чертеж без АЭ' || formData.Что_требуется === 'АЭ + Чертеж') {  
+                    nextStep = 'step17'; 
+                }
+
             }
 
             if (conditionKey === 'step9' && answer.includes('вытянутая развернутая длина')) {
@@ -73,6 +102,16 @@ function IndustrialBranch({ formData, updateFormData }) {
 
             if (conditionKey === 'step9' && answer.includes('Примерно не более Lпримерн')) {
                 nextStep = 'step12';  
+            }
+             
+            if (conditionKey === 'step17') {
+
+                if (answer.includes('Заполнить размеры') && formData.Что_требуется === 'Только чертеж без АЭ') {
+                    nextStep = 'step23';  
+                }
+                if (answer.includes('Заполнить размеры') && formData.Что_требуется === 'АЭ + Чертеж') {
+                     nextStep = 'step25';  
+                 } 
             }
             
         }
@@ -96,9 +135,14 @@ function IndustrialBranch({ formData, updateFormData }) {
         const formDataArray = Object.keys(formData)
             .filter(key => {
                 // We exclude technical keys that do not need to be sent to the table
-                if (key === 'step3_image') return false;  
-                if (key === 'step9_text') return false;  
-                return formData[key] && formData[key].trim() !== '';  // Only filled ones
+                if (key === 'step3_image') return false; 
+                if (key === 'step9_text') return false; 
+                if (key === 'step17') return false; 
+                const value = formData[key];
+                return value !== undefined 
+                && value !== null 
+                && value !== ''
+                && String(value).trim() !== '';
             })
             .map(key => ({
                 step: key,
@@ -116,6 +160,48 @@ function IndustrialBranch({ formData, updateFormData }) {
             .catch(error => alert('Ошибка: ' + error.message));
 
     };
+    
+//     const handleSubmit = async () => {
+//     // Формируем массив данных, фильтруя ненужные ключи
+//     const formDataArray = Object.keys(formData)
+//         .filter(key => {
+//             if (key === 'step3_image' || key === 'step9_text' || key === 'step17') return false; 
+//             const value = formData[key];
+//             return value !== undefined 
+//                 && value !== null 
+//                 && value !== '' 
+//                 && String(value).trim() !== '';
+//         })
+//         .map(key => ({
+//             step: key,
+//             answer: formData[key]
+//         }));
+
+//     try {
+//         // Отправляем данные только на ваш PHP-скрипт на Beget
+//         const response = await fetch('https://industrial.ironandsteel.ru/send.php', {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//             },
+//             body: JSON.stringify(formDataArray),
+//         });
+
+//         if (response.ok) {
+//             const result = await response.json();
+//             if (result.status === 'success') {
+//                 navigate('/complete'); 
+//             } else {
+//                 alert('Ошибка сервера при отправке почты');
+//             }
+//         } else {
+//             alert('Ошибка сети или сервера');
+//         }
+//     } catch (error) {
+//         console.error('Ошибка:', error);
+//         alert('Не удалось отправить форму: ' + error.message);
+//     }
+// };
     const steps = {
         step0: <Step0 formData={formData} updateFormData={updateFormData} onNext={onNextWithHistory('step1')} />,
         step1: <Step1 formData={formData} updateFormData={updateFormData} onNext={onNextWithHistory('step2')} onBack={() => navigate('/')} />,
@@ -124,7 +210,7 @@ function IndustrialBranch({ formData, updateFormData }) {
         step4: <Step4 formData={formData} updateFormData={updateFormData} onNext={onNextWithHistory('step5')} onBack={handleBack} />,
         step5: <Step5 formData={formData} updateFormData={updateFormData} onNext={getNextStep('step6', 'step5')} onBack={handleBack} />,
         step6: <Step6 formData={formData} updateFormData={updateFormData} onNext={getNextStep('step7', 'step6')} onBack={handleBack} />,
-        step7: <Step7 formData={formData} updateFormData={updateFormData} onNext={onNextWithHistory('step8')} onBack={handleBack} />,
+        step7: <Step7 formData={formData} updateFormData={updateFormData} onNext={getNextStep('step8', 'step7')} onBack={handleBack} />,
         step8: <Step8 formData={formData} updateFormData={updateFormData} onNext={onNextWithHistory('step9')} onBack={handleBack} />,
         step9: <Step9 formData={formData} updateFormData={updateFormData} onNext={getNextStep('step10', 'step9')} onBack={handleBack} />,
         step10: <Step10 formData={formData} updateFormData={updateFormData} onNext={onNextWithHistory('step13')} onBack={handleBack} />,
@@ -134,6 +220,15 @@ function IndustrialBranch({ formData, updateFormData }) {
         step14: <Step14 formData={formData} updateFormData={updateFormData} onNext={onNextWithHistory('step15')} onBack={handleBack} />,
         step15: <Step15 formData={formData} updateFormData={updateFormData} onNext={onNextWithHistory('step77')} onBack={handleBack} />,
         step16: <Step16 formData={formData} updateFormData={updateFormData} onNext={onNextWithHistory('step9')} onBack={handleBack} />,
+        step17: <Step17 formData={formData} updateFormData={updateFormData} onNext={getNextStep('step18', 'step17')} onBack={handleBack} />,
+        step18: <Step18 formData={formData} updateFormData={updateFormData} onNext={onNextWithHistory('step19')} onBack={handleBack} />,
+        step19: <Step19 formData={formData} updateFormData={updateFormData} onNext={onNextWithHistory('step20')} onBack={handleBack} />,
+        step20: <Step20 formData={formData} updateFormData={updateFormData} onNext={onNextWithHistory('step21')} onBack={handleBack} />,
+        step21: <Step21 formData={formData} updateFormData={updateFormData} onNext={onNextWithHistory('step77')} onBack={handleBack} />,
+        step22: <Step22 formData={formData} updateFormData={updateFormData} onNext={onNextWithHistory('step17')} onBack={handleBack} />,
+        step23: <Step23 formData={formData} updateFormData={updateFormData} onNext={onNextWithHistory('step20')} onBack={handleBack} />,
+        step24: <Step24 formData={formData} updateFormData={updateFormData} onNext={onNextWithHistory('step17')} onBack={handleBack} />,
+        step25: <Step25 formData={formData} updateFormData={updateFormData} onNext={onNextWithHistory('step20')} onBack={handleBack} />,
         step77: <Step77 formData={formData} updateFormData={updateFormData} onSubmit={handleSubmit} onBack={handleBack} />,
         // step8: <Step8 formData={formData} updateFormData={updateFormData} onNext={() => setCurrentStep('step9')} onBack={() => setCurrentStep('step77')} />,
         // step9: <Step9 formData={formData} updateFormData={updateFormData} onNext={() => setCurrentStep('step10')} onBack={() => setCurrentStep('step8')} />,

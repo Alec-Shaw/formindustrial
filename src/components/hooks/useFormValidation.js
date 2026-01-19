@@ -5,25 +5,32 @@ export const useFormValidation = () => {
 
     // Универсальная функция валидации поля
     const validateField = (fieldName, value, rules = {}) => {
-        let error = '';
-
-        if (rules.required && (!value || value.trim() === '')) {
-            error = 'Это поле обязательно для заполнения';
-        } else if (rules.oneof && (!value || value.trim() === '')) {
-            error = 'Заполните хотябы одно из полей';
-        } else if (rules.minLength && value.length < rules.minLength) {
-            error = `Минимум ${rules.minLength} символов`;
-        } else if (rules.number && (isNaN(Number(value)) || Number(value) <= 0)) {
-            error = 'Введите положительное число';
-        } else if (rules.email && !/^\S+@\S+\.\S+$/.test(value)) {
-            error = 'Введите корректный email (например, example@mail.com)';
+    let error = '';
+    if (rules.required) {
+        if (typeof value === 'boolean') {
+            if (!value) {
+                error = 'Необходимо согласиться с условиями';
+            }
+        } else {
+            if (!value || value.trim() === '') {
+                error = 'Это поле обязательно для заполнения';
+            }
         }
-        else if (rules.phone && !/^(\+7|8)?[\s-]?\(?[0-9]{3}\)?[\s-]?[0-9]{3}[\s-]?[0-9]{2}[\s-]?[0-9]{2}$/.test(value)) {
-            error = 'Введите корректный номер телефона (например, +7 (999) 123-45-67)';
-        }
-        
-        return error;
-    };
+    } else if (rules.oneof && (!value || (typeof value !== 'boolean' && value.trim() === ''))) {
+        error = 'Заполните хотябы одно из полей';
+    } else if (rules.minLength && value.length < rules.minLength) {
+        error = `Минимум ${rules.minLength} символов`;
+    } else if (rules.number && (isNaN(Number(value)) || Number(value) <= 0)) {
+        error = 'Введите положительное число';
+    } else if (rules.email && !/^\S+@\S+\.\S+$/.test(value)) {
+        error = 'Введите корректный email (например, example@mail.com)';
+    }
+    else if (rules.phone && !/^(\+7|8)?[\s-]?\(?[0-9]{3}\)?[\s-]?[0-9]{3}[\s-]?[0-9]{2}[\s-]?[0-9]{2}$/.test(value)) {
+        error = 'Введите корректный номер телефона (например, +7 (999) 123-45-67)';
+    }
+    
+    return error;
+};
 
     // Проверка всех полей и установка ошибок
     const validateAll = (fields) => {

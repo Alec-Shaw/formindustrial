@@ -30,6 +30,7 @@ label {
 }
 .quest{
   margin-bottom: 10px;
+  font-weight: 600;
 }
 .img_choos {
   display: flex;

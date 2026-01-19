@@ -81,7 +81,7 @@ const Step9 = ({ formData, updateFormData, onBack, onNext }) => {
 
         const hasValidField = (expandedLength.trim() && !expandedError) || (straightLength.trim() && !straightError) || (approxLength.trim() && !approxError);
         if (!hasValidField) {
-            setErrors(prev => ({ ...prev, general: 'Заполните хотя бы одно поле корректным числом!' }));
+            setErrors(prev => ({ ...prev, general: 'Заполните одно поле корректным числом!' }));
             return;
         }
 

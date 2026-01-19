@@ -7,6 +7,7 @@ const Step8 = ({ formData, updateFormData, onNext, onBack }) => {
 
     const [economizer, setEconomizer] = useState('Нет');
     const [dymosos, setDymosos] = useState('Нет');
+    
 
    
     useEffect(() => {
