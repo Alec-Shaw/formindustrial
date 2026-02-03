@@ -53,7 +53,7 @@ const Step0 = ({ formData, updateFormData }) => {
                     />
                     Промышленная
                 </label>
-                <br />
+                
                 <label style={{ opacity: 0.5 }}>
                     <input 
                         type="radio" 
@@ -66,7 +66,7 @@ const Step0 = ({ formData, updateFormData }) => {
                     />
                     Поквартирная коллективная
                 </label>
-                <br />
+                
                 <label style={{ opacity: 0.5 }}>
                     <input 
                         type="radio" 

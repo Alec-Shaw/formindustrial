@@ -59,7 +59,7 @@ const Step17 = ({ formData, updateFormData, onNext, onBack }) => {
                     />
                     Заполнить размеры
                 </label>
-                <br />
+                
                     <label>
                         <input
                             type="radio"

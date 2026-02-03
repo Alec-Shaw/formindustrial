@@ -23,7 +23,7 @@ const Step21 = ({ formData, updateFormData, onNext, onBack }) => {
                 Ревизия: 'Нет'
             });
         }
-    }, [formData.Элемент_для_газоанализа, formData.Шибер, formData.Взрывной_клапан, formData.Ревизия]);
+    }, [formData.Элемент_для_газоанализа, formData.Шибер, formData.Взрывной_клапан, formData.Ревизия, updateFormData]);
 
     
     const handleGazoanalizChange = (e) => {
@@ -93,7 +93,7 @@ const Step21 = ({ formData, updateFormData, onNext, onBack }) => {
                         />
                         Да
                     </label>
-                    <br />
+                    
                     <label>
                         <input
                             type="radio"
@@ -107,7 +107,7 @@ const Step21 = ({ formData, updateFormData, onNext, onBack }) => {
                     </label>
                     
                     {errors.Элемент_для_газоанализа && <p className="error">{errors.Элемент_для_газоанализа}</p>}
-                    <br />
+                    
                     <div className='quest'>Шибер</div>
                     <label>
                         <input
@@ -120,7 +120,7 @@ const Step21 = ({ formData, updateFormData, onNext, onBack }) => {
                         />
                         Да
                     </label>
-                    <br />
+                    
                     <label>
                         <input
                             type="radio"
@@ -133,7 +133,7 @@ const Step21 = ({ formData, updateFormData, onNext, onBack }) => {
                         Нет
                     </label>
                     {errors.Шибер && <p className="error">{errors.Шибер}</p>}
-                    <br />
+                    
                     <div className='quest'>Взрывной клапан</div>
                     <label>
                         <input
@@ -146,7 +146,7 @@ const Step21 = ({ formData, updateFormData, onNext, onBack }) => {
                         />
                         Да
                     </label>
-                    <br />
+                    
                     <label>
                         <input
                             type="radio"
@@ -159,7 +159,7 @@ const Step21 = ({ formData, updateFormData, onNext, onBack }) => {
                         Нет
                     </label>
                     {errors.Взрывной_клапан && <p className="error">{errors.Взрывной_клапан}</p>}
-                    <br />
+                    
                     <div className='quest'>Ревизия</div>
                     <label>
                         <input
@@ -172,7 +172,7 @@ const Step21 = ({ formData, updateFormData, onNext, onBack }) => {
                         />
                         Да
                     </label>
-                    <br />
+                    
                     <label>
                         <input
                             type="radio"

@@ -53,7 +53,7 @@ const Step15 = ({ formData, updateFormData, onNext, onBack }) => {
                     />
                     Известен - строго фиксирован
                 </label>
-                <br />
+               
                 <label>
                     <input
                         type="radio"
@@ -65,7 +65,7 @@ const Step15 = ({ formData, updateFormData, onNext, onBack }) => {
                     />
                     Известен перепроверить АЭ
                 </label>
-                <br />
+                
                 <label>
                     <input
                         type="radio"
@@ -78,7 +78,7 @@ const Step15 = ({ formData, updateFormData, onNext, onBack }) => {
                     Определить АЭ
                 </label>
                 {errors.diametrChimney && <p className="error">{errors.diametrChimney}</p>}
-                <br />
+                
                 <h4>Изоляция</h4>
                 <label>
                     <input
@@ -91,7 +91,7 @@ const Step15 = ({ formData, updateFormData, onNext, onBack }) => {
                     />
                     Да - 50 рекомендуемая
                 </label>
-                <br />
+                
                 <label>
                     <input
                         type="radio"
@@ -103,7 +103,7 @@ const Step15 = ({ formData, updateFormData, onNext, onBack }) => {
                     />
                     Да - 25 в обоснованных случаях
                 </label>
-                <br />
+                
                 <label>
                     <input
                         type="radio"
@@ -115,7 +115,7 @@ const Step15 = ({ formData, updateFormData, onNext, onBack }) => {
                     />
                     Нет
                 </label>
-                 <br />
+                 
                 <label>
                     <input
                         type="radio"
@@ -127,7 +127,7 @@ const Step15 = ({ formData, updateFormData, onNext, onBack }) => {
                     />
                     В теплых 1 стен, в холодных 50
                 </label>
-                <br />
+                
                 <label>
                     <input
                         type="radio"

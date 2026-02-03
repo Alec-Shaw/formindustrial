@@ -137,7 +137,7 @@ const Step22 = ({ formData, updateFormData, onNext, onBack }) => {
                         />
                         Газ
                     </label>
-                    <br />
+                    
                     <label>
                         <input
                             type="radio"
@@ -148,7 +148,7 @@ const Step22 = ({ formData, updateFormData, onNext, onBack }) => {
                         />
                         Дизель
                     </label>
-                    <br />
+                    
                     <label>
                         <input
                             type="radio"
@@ -159,7 +159,7 @@ const Step22 = ({ formData, updateFormData, onNext, onBack }) => {
                         />
                         Газ/дизел
                     </label>
-                    <br />
+                   
                     <label>
                         <input
                             type="radio"
@@ -170,7 +170,7 @@ const Step22 = ({ formData, updateFormData, onNext, onBack }) => {
                         />
                         Дрова
                     </label>
-                    <br />
+                    
                     <label>
                         <input
                             type="radio"
@@ -181,7 +181,7 @@ const Step22 = ({ formData, updateFormData, onNext, onBack }) => {
                         />
                         Уголь
                     </label>
-                    <br />
+                    
 
                     {errors[`fuelType_${boilerNum}`] && <p className="error">{errors[`fuelType_${boilerNum}`]}</p>}
                 </div>
@@ -258,7 +258,7 @@ const Step22 = ({ formData, updateFormData, onNext, onBack }) => {
                     />
                     Классический с наддувной горелкой без избыточного давления
                 </label>
-                <br />
+                
                 <label>
                     <input
                         type="radio"
@@ -269,7 +269,7 @@ const Step22 = ({ formData, updateFormData, onNext, onBack }) => {
                     />
                     Атмосферный
                 </label>
-                <br />
+                
                 <label>
                     <input
                         type="radio"
@@ -280,7 +280,7 @@ const Step22 = ({ formData, updateFormData, onNext, onBack }) => {
                     />
                     Конденсационный
                 </label>
-                <br />
+                
                 <label>
                     <input
                         type="radio"
@@ -291,7 +291,7 @@ const Step22 = ({ formData, updateFormData, onNext, onBack }) => {
                     />
                     С избыточным давлением не конденсационный
                 </label>
-                <br />
+                
                 <label>
                     <input
                         type="radio"

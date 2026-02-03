@@ -99,7 +99,7 @@ const Step13 = ({ formData, updateFormData, onBack, onNext }) => {
                     />
                 </label>
                 {errors.in90Dergree && <p className="error">{errors.in90Dergree}</p>}
-                <br/>
+                
                 <label>
                     <span className='degree'>45°</span>
                     <input
@@ -112,7 +112,7 @@ const Step13 = ({ formData, updateFormData, onBack, onNext }) => {
                     />
                 </label>
                 {errors.in45Dergree && <p className="error">{errors.in45Dergree}</p>}
-                <br/>
+                
                 <label>
                     <span className='degree'>30°</span>
                     <input
@@ -125,7 +125,7 @@ const Step13 = ({ formData, updateFormData, onBack, onNext }) => {
                     />
                 </label>
                 {errors.in30Dergree && <p className="error">{errors.in30Dergree}</p>}
-                <br />
+                
                 <div className='quest'>На улице, шт</div>
                 <label>
                 <span className='degree'>90°</span>
@@ -139,7 +139,7 @@ const Step13 = ({ formData, updateFormData, onBack, onNext }) => {
                     />
                 </label>
                 {errors.out90Dergree && <p className="error">{errors.out90Dergree}</p>}
-                <br />
+                
                 <label>
                 <span className='degree'>45°</span>
                     <input
@@ -152,7 +152,7 @@ const Step13 = ({ formData, updateFormData, onBack, onNext }) => {
                     />
                 </label>
                 {errors.out45Dergree && <p className="error">{errors.out45Dergree}</p>}
-                <br />
+                
                 <label>
                 <span className='degree'>30°</span>
                     <input

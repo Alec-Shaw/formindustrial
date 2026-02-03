@@ -43,7 +43,7 @@ const Step1 = ({ formData, updateFormData, onNext, onBack }) => {
                     />
                     На каждый котел свой отдельный дымоход
                 </label>
-                <br />
+                
                 <label style={{ opacity: 0.5 }}>
                     <input
                         type="radio"
@@ -57,7 +57,7 @@ const Step1 = ({ formData, updateFormData, onNext, onBack }) => {
                     />
                     Несколько котлов в один вертикальный дымоход
                 </label>
-                <br />
+                
                 <label style={{ opacity: 0.5 }}>
                     <input
                         type="radio"

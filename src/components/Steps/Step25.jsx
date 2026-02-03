@@ -34,15 +34,18 @@ const Step25 = ({ formData, updateFormData, onNext, onBack }) => {
         const data = {};
         for (let i = 1; i <= numBoilers; i++) {
             data[i] = {
-                power: '',
-                oxigen: '',
-                flow: '',
-                degree: '',
-                pressure: '',
-                pipeBranch: '',
+                diametrPipeBranch: '',
+                heightPipeBranch: '',
+                boilerToTower: '',
+                sideTowerA: '',
+                towerOffsetB: '',
+                insulation: '',
                 distance: '',
                 distanceAxis: '',
+                distanceAxisPrecisely: '',
+                distanceAxisAbout: '',
                 distanceSurface: '',
+                distanceConnect:'',
                 distanceBoiler: '',
                 wall: '',
                 inAngle30: '',
@@ -51,7 +54,9 @@ const Step25 = ({ formData, updateFormData, onNext, onBack }) => {
                 outAngle30: '',
                 outAngle45: '',
                 outAngle90: '',
-                diametr: '',
+                chimneyDiameter: '',
+                chimneyDiameterKnown: '',
+                chimneyDiameterCheck: '',
                 connect: '',
                 // Step18 fields
                 mainChoice: '',
@@ -179,30 +184,76 @@ const Step25 = ({ formData, updateFormData, onNext, onBack }) => {
         const fields = {};
         for (let i = 1; i <= numBoilers; i++) {
             const b = boilerData[i] || {};
-            fields[`power_${i}`] = b.power;
-            fields[`power_${i}_rules`] = { required: true };
-            fields[`oxigen_${i}`] = b.oxigen;
-            fields[`oxigen_${i}_rules`] = { required: true };
-            fields[`flow_${i}`] = b.flow;
-            fields[`flow_${i}_rules`] = { required: true };
-            fields[`degree_${i}`] = b.degree;
-            fields[`degree_${i}_rules`] = { required: true };
-            fields[`pressure_${i}`] = b.pressure;
-            fields[`pressure_${i}_rules`] = { required: true };
-            fields[`pipeBranch_${i}`] = b.pipeBranch;
-            fields[`pipeBranch_${i}_rules`] = { required: true };
+            fields[`diametrPipeBranch_${i}`] = b.diametrPipeBranch;
+            fields[`diametrPipeBranch_${i}_rules`] = { required: true };
+            fields[`heightPipeBranch_${i}`] = b.heightPipeBranch;
+            fields[`heightPipeBranch_${i}_rules`] = { required: true };
+            fields[`boilerToTower_${i}`] = b.boilerToTower;
+            fields[`boilerToTower_${i}_rules`] = { required: true };
+            fields[`sideTowerA_${i}`] = b.sideTowerA;
+            fields[`sideTowerA_${i}_rules`] = { required: true };
+            fields[`towerOffsetB_${i}`] = b.towerOffsetB;
+            fields[`towerOffsetB_${i}_rules`] = { required: true };
+            fields[`insulation_${i}`] = b.insulation;
+            fields[`insulation_${i}_rules`] = { required: true };
             fields[`distance_${i}`] = b.distance;
             fields[`distance_${i}_rules`] = { required: true };
             fields[`distanceAxis_${i}`] = b.distanceAxis;
             fields[`distanceAxis_${i}_rules`] = { required: true };
+            
+            if (b.distanceAxis !== "Принять по оси башни, т.е. K=0" && b.distanceAxis === 'Точно') {
+            fields[`distanceAxisPrecisely_${i}`] = b.distanceAxisPrecisely;
+            fields[`distanceAxisPrecisely_${i}_rules`] = { required: true };
+            b.distanceAxisAbout = '';
+        }
+
+        if (b.distanceAxis !== "Принять по оси башни, т.е. K=0" && b.distanceAxis === 'Примерно') {
+            fields[`distanceAxisAbout_${i}`] = b.distanceAxisAbout;
+            fields[`distanceAxisAbout_${i}_rules`] = { required: true };
+            b.distanceAxisPrecisely = '';
+        }
+
+        if (b.distanceAxis === "Принять по оси башни, т.е. K=0") {
+            b.distanceAxisPrecisely = '';
+            b.distanceAxisAbout = '';
+        }
+
             fields[`distanceSurface_${i}`] = b.distanceSurface;
-            fields[`distanceSurface_${i}_rules`] = { required: true };         
-            fields[`distanceBoiler_${i}`] = b.distanceBoiler;
-            fields[`distanceBoiler_${i}_rules`] = { required: true };
+            fields[`distanceSurface_${i}_rules`] = { required: true };    
+            
+             if (b.distanceSurface === "Другое значение") {
+                fields[`distanceConnect_${i}`] = b.distanceConnect;
+                fields[`distanceConnect_${i}_rules`] = { required: true };
+             }
+            
+            if (numBoilers !== 1) {
+                fields[`distanceBoiler_${i}`] = b.distanceBoiler;
+                fields[`distanceBoiler_${i}_rules`] = { required: true };
+            }
+            
             fields[`wall_${i}`] = b.wall;
             fields[`wall_${i}_rules`] = { required: true };
-            fields[`diametr_${i}`] = b.diametr;
-            fields[`diametr_${i}_rules`] = { required: true };
+           
+            fields[`chimneyDiameter_${i}`] = b.chimneyDiameter;
+            fields[`chimneyDiameter_${i}_rules`] = { required: true };
+            
+            if (b.chimneyDiameter !== "Определить АЭ" && b.chimneyDiameter === "Известен") {
+               fields[`chimneyDiameterKnown_${i}`] = b.chimneyDiameterKnown;
+               fields[`chimneyDiameterKnown_${i}_rules`] = { required: true };
+               b.chimneyDiameterCheck = '';
+            }
+            
+            if (b.chimneyDiameter !== "Определить АЭ" && b.chimneyDiameter === "Известен перепроверить АЭ") {
+               fields[`chimneyDiameterCheck_${i}`] = b.chimneyDiameterCheck;
+               fields[`chimneyDiameterCheck_${i}_rules`] = { required: true };
+               b.chimneyDiameterKnown = '';
+            }
+            
+            if (b.chimneyDiameter === "Определить АЭ") {
+               b.chimneyDiameterKnown = '';
+               b.chimneyDiameterCheck = '';
+            }
+
             fields[`connect_${i}`] = b.connect;
             fields[`connect_${i}_rules`] = { required: true };
             
@@ -274,119 +325,203 @@ const Step25 = ({ formData, updateFormData, onNext, onBack }) => {
                     <div className='quest'>Котел {boilerNum}</div>
                     <br />
                     <label>
-                        <span className='table_boiler'>Диаметр дымоотводящего патрубка (dk)</span>
+                        <span className='table_boiler'>Диаметр дымоотводящего патрубка (dk), мм</span>
                         <input
                             className='width_lable'
                             type="text"
-                            placeholder="dk"
-                            value={boiler.power || ''}
-                            onChange={(e) => handleFieldChange(boilerNum, 'power', e.target.value)}
+                            placeholder="(dk), мм"
+                            value={boiler.diametrPipeBranch || ''}
+                            onChange={(e) => handleFieldChange(boilerNum, 'diametrPipeBranch', e.target.value)}
                         />
                     </label>
-                    {errors[`power_${boilerNum}`] && <p className="error">{errors[`power_${boilerNum}`]}</p>}
+                    {errors[`diametrPipeBranch_${boilerNum}`] && <p className="error">{errors[`diametrPipeBranch_${boilerNum}`]}</p>}
                     <br />
                     <label>
-                        <span className='table_boiler'>Высота дымоотводящего патрубка (hk)</span>
+                        <span className='table_boiler'>Высота дымоотводящего патрубка (hk), мм</span>
                         <input
                             className='width_lable'
                             type="text"
-                            placeholder="hk"
-                            value={boiler.oxigen || ''}
-                            onChange={(e) => handleFieldChange(boilerNum, 'oxigen', e.target.value)}
+                            placeholder="(hk), мм"
+                            value={boiler.heightPipeBranch || ''}
+                            onChange={(e) => handleFieldChange(boilerNum, 'heightPipeBranch', e.target.value)}
                         />
                     </label>
-                    {errors[`oxigen_${boilerNum}`] && <p className="error">{errors[`oxigen_${boilerNum}`]}</p>}
+                    {errors[`heightPipeBranch_${boilerNum}`] && <p className="error">{errors[`heightPipeBranch_${boilerNum}`]}</p>}
                     <br />
                     <label>
-                        <span className='table_boiler'>От котла до башни (М)</span>
+                        <span className='table_boiler'>От котла до башни (М), мм</span>
                         <input
                             className='width_lable'
                             type="text"
-                            placeholder="M"
-                            value={boiler.flow || ''}
-                            onChange={(e) => handleFieldChange(boilerNum, 'flow', e.target.value)}
+                            placeholder="(M), мм"
+                            value={boiler.boilerToTower || ''}
+                            onChange={(e) => handleFieldChange(boilerNum, 'boilerToTower', e.target.value)}
                         />
                     </label>
-                    {errors[`flow_${boilerNum}`] && <p className="error">{errors[`flow_${boilerNum}`]}</p>}
+                    {errors[`boilerToTower_${boilerNum}`] && <p className="error">{errors[`boilerToTower_${boilerNum}`]}</p>}
                     <br />
                     <label>
-                        <span className='table_boiler'>Сторона башни по осям (А)</span>
+                        <span className='table_boiler'>Сторона башни по осям (А), мм</span>
                         <input
                             className='width_lable'
                             type="text"
-                            placeholder="A"
-                            value={boiler.degree || ''}
-                            onChange={(e) => handleFieldChange(boilerNum, 'degree', e.target.value)}
+                            placeholder="(A), мм"
+                            value={boiler.sideTowerA || ''}
+                            onChange={(e) => handleFieldChange(boilerNum, 'sideTowerA', e.target.value)}
                         />
                     </label>
-                    {errors[`degree_${boilerNum}`] && <p className="error">{errors[`degree_${boilerNum}`]}</p>}
+                    {errors[`sideTowerA_${boilerNum}`] && <p className="error">{errors[`sideTowerA_${boilerNum}`]}</p>}
                     <br />
                     <label>
-                        <span className='table_boiler'>Смещение башни относительно котла (B)</span>
+                        <span className='table_boiler'>Смещение башни относительно котла (B), мм</span>
                         <input
                             className='width_lable'
                             type="text"
-                            placeholder="B"
-                            value={boiler.pressure || ''}
-                            onChange={(e) => handleFieldChange(boilerNum, 'pressure', e.target.value)}
+                            placeholder="(B), мм"
+                            value={boiler.towerOffsetB || ''}
+                            onChange={(e) => handleFieldChange(boilerNum, 'towerOffsetB', e.target.value)}
                         />
                     </label>
-                    {errors[`pressure_${boilerNum}`] && <p className="error">{errors[`pressure_${boilerNum}`]}</p>}
+                    {errors[`towerOffsetB_${boilerNum}`] && <p className="error">{errors[`towerOffsetB_${boilerNum}`]}</p>}
                     <br />
                     <label>
-                        <span className='table_boiler'>Расстояние в помещении (Р)</span>
+                        <span className='table_boiler'>Расстояние в помещении (Р), мм</span>
                         <input
                             className='width_lable'
                             type="text"
-                            placeholder="P"
+                            placeholder="(P), мм"
                             value={boiler.distance || ''}
                             onChange={(e) => handleFieldChange(boilerNum, 'distance', e.target.value)}
                         />
                     </label>
                     {errors[`distance_${boilerNum}`] && <p className="error">{errors[`distance_${boilerNum}`]}</p>}
                     <br />
-                    <label>
-                        <span className='table_boiler'>Расстояние от оси стороны башни до поверхности присоединения консоли (К)</span>
+
+                    <div className="radio">
+                        <span className='table_boiler'>Расстояние от оси стороны башни до поверхности присоединения консоли (К), мм</span>
+                        <div>
+                        
+                        <label>
                         <input
-                            className='width_lable'
-                            type="text"
-                            placeholder="K"
-                            value={boiler.distanceAxis || ''}
+                            type="radio"
+                            name={`distanceAxis_${boilerNum}`}
+                            value="Точно"
+                            checked={boiler.distanceAxis === "Точно"}
                             onChange={(e) => handleFieldChange(boilerNum, 'distanceAxis', e.target.value)}
                         />
+                        Точно
                     </label>
+                    {(boiler.distanceAxis === "Точно") && (<div style={{marginLeft: "20px", marginBottom:"20px"}}>
+                    <input
+                            className='width_lable'
+                            type="text"
+                            placeholder="(K), мм"
+                            value={boiler.distanceAxisPrecisely  || ''}
+                            onChange={(e) => handleFieldChange(boilerNum, 'distanceAxisPrecisely', e.target.value)}
+                        />
+                          {errors[`distanceAxisPrecisely_${boilerNum}`] && <p className="error">{errors[`distanceAxisPrecisely_${boilerNum}`]}</p>}
+                        </div>)}
+                    <label>
+                        <input
+                            type="radio"
+                            name={`distanceAxis_${boilerNum}`}
+                            value="Примерно"
+                            checked={boiler.distanceAxis === "Примерно"}
+                            onChange={(e) => handleFieldChange(boilerNum, 'distanceAxis', e.target.value)}
+                        />
+                        Примерно
+                    </label>
+                    {(boiler.distanceAxis === "Примерно") && (<div style={{marginLeft: "20px", marginBottom:"20px"}}>
+                    <input
+                            className='width_lable'
+                            type="text"
+                            placeholder="(K), мм"
+                            value={boiler.distanceAxisAbout  || ''}
+                            onChange={(e) => handleFieldChange(boilerNum, 'distanceAxisAbout', e.target.value)}
+                        />
+                          {errors[`distanceAxisAbout_${boilerNum}`] && <p className="error">{errors[`distanceAxisAbout_${boilerNum}`]}</p>}
+                        </div>)}
+                    <label>
+                        <input
+                            type="radio"
+                            name={`distanceAxis_${boilerNum}`}
+                            value="Принять по оси башни, т.е. K=0"
+                            checked={boiler.distanceAxis === "Принять по оси башни, т.е. K=0"}
+                            onChange={(e) => handleFieldChange(boilerNum, 'distanceAxis', e.target.value)}
+                        />
+                        Принять по оси башни, т.е. K=0
+                    </label>
+                    </div>
+                    </div>
                     {errors[`distanceAxis_${boilerNum}`] && <p className="error">{errors[`distanceAxis_${boilerNum}`]}</p>}
                     <br />
+                    
+                    <div className="radio">
+                    <span className='table_boiler'>Расстояние от поверхности присоединения консоли до края дымохода (Х), мм</span>
+                    <div>
                     <label>
-                        <span className='table_boiler'>Расстояние от поверхности присоединения консоли до края дымохода (Х)</span>
-                        <input
-                            className='width_lable'
-                            type="text"
-                            placeholder="X"
-                            value={boiler.distanceSurface || ''}
+                    <input
+                            type="radio"
+                            name={`distanceSurface_${boilerNum}`}
+                            value="Для Стен хомута принять 50"
+                            checked={boiler.distanceSurface === "Для Стен хомута принять 50"}
                             onChange={(e) => handleFieldChange(boilerNum, 'distanceSurface', e.target.value)}
                         />
+                        Для "Стенового хомута" принять 50
                     </label>
-                    {errors[`distanceSurface_${boilerNum}`] && <p className="error">{errors[`distanceSurface_${boilerNum}`]}</p>}
-                    <br />
                     <label>
-                        <span className='table_boiler'>Расстояние между котлами (R)</span>
+                    <input
+                            type="radio"
+                            name={`distanceSurface_${boilerNum}`}
+                            value="Для Крепления к стене принять 65"
+                            checked={boiler.distanceSurface === "Для Крепления к стене принять 65"}
+                            onChange={(e) => handleFieldChange(boilerNum, 'distanceSurface', e.target.value)}
+                        />
+                        Для "Крепления к стене" принять 65
+                    </label>
+                    <label>
+                    <input
+                            type="radio"
+                            name={`distanceSurface_${boilerNum}`}
+                            value="Другое значение"
+                            checked={boiler.distanceSurface === "Другое значение"}
+                            onChange={(e) => handleFieldChange(boilerNum, 'distanceSurface', e.target.value)}
+                        />
+                        Другое значение
+                    </label>
+                    {(boiler.distanceSurface === "Другое значение") && (<div style={{marginLeft: "20px", marginBottom:"20px"}}>
+                    <input
+                        className='width_lable'
+                        type="text"
+                        placeholder="(X), мм"
+                        value={boiler.distanceConnect || ''}
+                        onChange={(e) => handleFieldChange(boilerNum, 'distanceConnect', e.target.value)}
+                    />
+                    {errors[`distanceConnect_${boilerNum}`] && <p className="error">{errors[`distanceConnect_${boilerNum}`]}</p>}
+                    </div>)}
+                    </div>
+                </div>
+                {errors[`distanceSurface_${boilerNum}`] && <p className="error">{errors[`distanceSurface_${boilerNum}`]}</p>}
+                <br />
+                    
+                    {(numBoilers !== 1) && (<label>
+                        <span className='table_boiler'>Расстояние между котлами (R), мм</span>
                         <input
                             className='width_lable'
                             type="text"
-                            placeholder="R"
+                            placeholder="(R), мм"
                             value={boiler.distanceBoiler || ''}
                             onChange={(e) => handleFieldChange(boilerNum, 'distanceBoiler', e.target.value)}
                         />
-                    </label>
+                    </label>)}
                     {errors[`distanceBoiler_${boilerNum}`] && <p className="error">{errors[`distanceBoiler_${boilerNum}`]}</p>}
                     <br />
                     <label>
-                        <span className='table_boiler'>Толщина стены (T)</span>
+                        <span className='table_boiler'>Толщина стены (T), мм</span>
                         <input
                             className='width_lable'
                             type="text"
-                            placeholder="T"
+                            placeholder="(T), мм"
                             value={boiler.wall || ''}
                             onChange={(e) => handleFieldChange(boilerNum, 'wall', e.target.value)}
                         />
@@ -397,10 +532,10 @@ const Step25 = ({ formData, updateFormData, onNext, onBack }) => {
                     <label>
                         <input
                             type="radio"
-                            name={`pipeBranch_${boilerNum}`}
+                            name={`insulation_${boilerNum}`}
                             value="Да - 50 рекомендуемая"
-                            checked={boiler.pipeBranch === "Да - 50 рекомендуемая"}
-                            onChange={(e) => handleFieldChange(boilerNum, 'pipeBranch', e.target.value)}
+                            checked={boiler.insulation === "Да - 50 рекомендуемая"}
+                            onChange={(e) => handleFieldChange(boilerNum, 'insulation', e.target.value)}
                         />
                         Да - 50 рекомендуемая
                     </label>
@@ -408,10 +543,10 @@ const Step25 = ({ formData, updateFormData, onNext, onBack }) => {
                     <label>
                         <input
                             type="radio"
-                            name={`pipeBranch_${boilerNum}`}
+                            name={`insulation_${boilerNum}`}
                             value="Да - 25 в обоснованных случаях"
-                            checked={boiler.pipeBranch === "Да - 25 в обоснованных случаях"}
-                            onChange={(e) => handleFieldChange(boilerNum, 'pipeBranch', e.target.value)}
+                            checked={boiler.insulation === "Да - 25 в обоснованных случаях"}
+                            onChange={(e) => handleFieldChange(boilerNum, 'insulation', e.target.value)}
                         />
                         Да - 25 в обоснованных случаях
                     </label>
@@ -419,10 +554,10 @@ const Step25 = ({ formData, updateFormData, onNext, onBack }) => {
                     <label>
                         <input
                             type="radio"
-                            name={`pipeBranch_${boilerNum}`}
+                            name={`insulation_${boilerNum}`}
                             value="Нет"
-                            checked={boiler.pipeBranch === "Нет"}
-                            onChange={(e) => handleFieldChange(boilerNum, 'pipeBranch', e.target.value)}
+                            checked={boiler.insulation === "Нет"}
+                            onChange={(e) => handleFieldChange(boilerNum, 'insulation', e.target.value)}
                         />
                         Нет
                     </label>
@@ -430,10 +565,10 @@ const Step25 = ({ formData, updateFormData, onNext, onBack }) => {
                     <label>
                         <input
                             type="radio"
-                            name={`pipeBranch_${boilerNum}`}
+                            name={`insulation_${boilerNum}`}
                             value="В теплых 1 стен, в холодных 50"
-                            checked={boiler.pipeBranch === "В теплых 1 стен, в холодных 50"}
-                            onChange={(e) => handleFieldChange(boilerNum, 'pipeBranch', e.target.value)}
+                            checked={boiler.insulation === "В теплых 1 стен, в холодных 50"}
+                            onChange={(e) => handleFieldChange(boilerNum, 'insulation', e.target.value)}
                         />
                         В теплых 1 стен, в холодных 50
                     </label>
@@ -441,14 +576,14 @@ const Step25 = ({ formData, updateFormData, onNext, onBack }) => {
                     <label>
                         <input
                             type="radio"
-                            name={`pipeBranch_${boilerNum}`}
+                            name={`insulation_${boilerNum}`}
                             value="В теплых 1 стен, в холодных 25"
-                            checked={boiler.pipeBranch === "В теплых 1 стен, в холодных 25"}
-                            onChange={(e) => handleFieldChange(boilerNum, 'pipeBranch', e.target.value)}
+                            checked={boiler.insulation === "В теплых 1 стен, в холодных 25"}
+                            onChange={(e) => handleFieldChange(boilerNum, 'insulation', e.target.value)}
                         />
                         В теплых 1 стен, в холодных 25
                     </label>
-                    {errors[`pipeBranch_${boilerNum}`] && <p className="error">{errors[`pipeBranch_${boilerNum}`]}</p>}
+                    {errors[`insulation_${boilerNum}`] && <p className="error">{errors[`insulation_${boilerNum}`]}</p>}
                     <br />
                     <div className='quest'>Количество поворотов в котельной (Котел {boilerNum})</div>
                     <label>
@@ -524,18 +659,79 @@ const Step25 = ({ formData, updateFormData, onNext, onBack }) => {
                     </label>
                     {errors[`outAngle90_${boilerNum}`] && <p className="error">{errors[`outAngle90_${boilerNum}`]}</p>}
                     <br />
-                    <div className='quest'>Диаметр дымохода (Котел {boilerNum})</div>
+                    
+                    {/* Диаметр дымохода */}
+
+                    <div className="radio">
+                    <div className='table_boiler'>Диаметр дымохода (Котел {boilerNum})</div>
+
+                    <div>
+                        
+                        <label>
+                        <input
+                            type="radio"
+                            name={`chimneyDiameter_${boilerNum}`}
+                            value="Известен"
+                            checked={boiler.chimneyDiameter === "Известен"}
+                            onChange={(e) => handleFieldChange(boilerNum, 'chimneyDiameter', e.target.value)}
+                        />
+                        Известен
+                    </label>
+                    {(boiler.chimneyDiameter === "Известен") && (<div style={{marginLeft: "20px", marginBottom:"20px"}}>
+                    <input
+                            className='width_lable'
+                            type="text"
+                            placeholder="(K), мм"
+                            value={ boiler.chimneyDiameterKnown  || ''}
+                            onChange={(e) => handleFieldChange(boilerNum, 'chimneyDiameterKnown', e.target.value)}
+                        />
+                          {errors[`chimneyDiameterKnown_${boilerNum}`] && <p className="error">{errors[`chimneyDiameterKnown_${boilerNum}`]}</p>}
+                        </div>)}
                     <label>
+                        <input
+                            type="radio"
+                            name={`chimneyDiameter_${boilerNum}`}
+                            value="Известен перепроверить АЭ"
+                            checked={boiler.chimneyDiameter === "Известен перепроверить АЭ"}
+                            onChange={(e) => handleFieldChange(boilerNum, 'chimneyDiameter', e.target.value)}
+                        />
+                        Известен перепроверить АЭ
+                    </label>
+                    {(boiler.chimneyDiameter === "Известен перепроверить АЭ") && (<div style={{marginLeft: "20px", marginBottom:"20px"}}>
+                    <input
+                            className='width_lable'
+                            type="text"
+                            placeholder="(K), мм"
+                            value={boiler.chimneyDiameterCheck  || ''}
+                            onChange={(e) => handleFieldChange(boilerNum, 'chimneyDiameterCheck', e.target.value)}
+                        />
+                          {errors[`chimneyDiameterCheck_${boilerNum}`] && <p className="error">{errors[`chimneyDiameterCheck_${boilerNum}`]}</p>}
+                        </div>)}
+                    <label>
+                        <input
+                            type="radio"
+                            name={`chimneyDiameter_${boilerNum}`}
+                            value="Определить АЭ"
+                            checked={boiler.chimneyDiameter === "Определить АЭ"}
+                            onChange={(e) => handleFieldChange(boilerNum, 'chimneyDiameter', e.target.value)}
+                        />
+                        Определить АЭ
+                    </label>
+                    </div>
+                 </div>
+                    
+                    {/* <label>
                         <span className='table_boiler'>Известен</span>
                         <input
                             className='width_lable'
                             type="text"
                             placeholder="диаметр"
-                            value={boiler.diametr || ''}
-                            onChange={(e) => handleFieldChange(boilerNum, 'diametr', e.target.value)}
+                            value={boiler.chimneyDiameter || ''}
+                            onChange={(e) => handleFieldChange(boilerNum, 'chimneyDiameter', e.target.value)}
                         />
-                    </label>
-                    {errors[`diametr_${boilerNum}`] && <p className="error">{errors[`diametr_${boilerNum}`]}</p>}
+                    </label> */}
+
+                    {errors[`chimneyDiameter_${boilerNum}`] && <p className="error">{errors[`chimneyDiameter_${boilerNum}`]}</p>}
                     <br />
                     <div className='quest'>Высота при прочерчивании (Котел {boilerNum})</div>
                     <label>
@@ -548,7 +744,7 @@ const Step25 = ({ formData, updateFormData, onNext, onBack }) => {
                         />
                         Строго ограниченна (подогнать нестандартными элементами)
                     </label>
-                    <br />
+                    
                     <label>
                         <input
                             type="radio"

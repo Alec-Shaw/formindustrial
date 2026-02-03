@@ -43,7 +43,7 @@ const Step18 = ({ formData, updateFormData, onNext, onBack }) => {
                     />
                     Строго ограничена (подогнать нестандартными элементами)
                 </label>
-                <br />
+                
                 <label>
                     <input
                         type="radio"

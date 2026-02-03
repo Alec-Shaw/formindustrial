@@ -43,7 +43,7 @@ const Step20 = ({ formData, updateFormData, onNext, onBack }) => {
                     />
                     Горизонтальный (газоход)
                 </label>
-                <br />
+                
                 <label>
                     <input
                         type="radio"
@@ -54,6 +54,18 @@ const Step20 = ({ formData, updateFormData, onNext, onBack }) => {
                         onChange={handleChange}
                     />
                     Вертикальный (дымоход)
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        id="option2"
+                        name="step20"
+                        value="Горизонтальный + Вертикальный"
+                        checked={selectedConnection === "Горизонтальный + Вертикальный"}
+                        onChange={handleChange}
+                    />
+                    Горизонтальный + Вертикальный
                 </label>
 
                 {errors.connection && <p className="error">{errors.connection}</p>}

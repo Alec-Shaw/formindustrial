@@ -251,7 +251,7 @@ const Step14 = ({ formData, updateFormData, onNext, onBack }) => {
                         )}
                     </div>
                 </label>
-                <br />
+                
                 <label>
                 <div className="img_choos">
                   <div style={{display: 'flex'}}>
@@ -288,7 +288,8 @@ const Step14 = ({ formData, updateFormData, onNext, onBack }) => {
                             {errors.notMore && <p className="error">{errors.notMore}</p>}
                             {errors.notLess && <p className="error">{errors.notLess}</p>}
                             <br />
-                            2. <input
+                            <div style={{display: 'flex'}}>
+                             <input
                                 type="radio"
                                 name="subpoint"
                                 value="2"
@@ -306,17 +307,18 @@ const Step14 = ({ formData, updateFormData, onNext, onBack }) => {
                                 value={nokNotLess}
                                 onChange={handleNokNotLessChange}
                                 style={{ margin: '0 5px' }}
-                            />
+                            /></div>
                             {errors.nokNotMore && <p className="error">{errors.nokNotMore}</p>}
                             {errors.nokNotLess && <p className="error">{errors.nokNotLess}</p>}
                             <br />
-                            3. <input
+                            <div style={{display: 'flex'}}>
+                             <input
                                 type="radio"
                                 name="subpoint"
                                 value="3"
                                 checked={selectedSubpoint === "3"}
                                 onChange={handleSelectedSubpointChange}
-                            /> Выбрать min при диаметре выхода котла
+                            /> Выбрать min при диаметре выхода котла</div>
                         </div>
                     )}
                     </div>

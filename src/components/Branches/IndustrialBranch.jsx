@@ -130,78 +130,78 @@ function IndustrialBranch({ formData, updateFormData }) {
             return newHistory;
         });
     };
-    const handleSubmit = () => {
+    // const handleSubmit = () => {
         
-        const formDataArray = Object.keys(formData)
-            .filter(key => {
-                // We exclude technical keys that do not need to be sent to the table
-                if (key === 'step3_image') return false; 
-                if (key === 'step9_text') return false; 
-                if (key === 'step17') return false; 
-                const value = formData[key];
-                return value !== undefined 
-                && value !== null 
-                && value !== ''
-                && String(value).trim() !== '';
-            })
-            .map(key => ({
-                step: key,
-                answer: formData[key]
-            }));
-        fetch('https://script.google.com/macros/s/AKfycbwYadIeETU5f-Q1bqqaA5STWdFpC2tgMFJPmvevlQjkDLLIGaNxefwRA5CZeG0z_Mk5/exec', {
-            method: 'POST',
-            body: JSON.stringify(formDataArray)
-        })
-            .then(response => response.json())
-            .then(result => {
-                alert(result.message || 'Отправлено!');
-                navigate('/complete'); 
-            })
-            .catch(error => alert('Ошибка: ' + error.message));
+    //     const formDataArray = Object.keys(formData)
+    //         .filter(key => {
+    //             // We exclude technical keys that do not need to be sent to the table
+    //             if (key === 'step3_image') return false; 
+    //             if (key === 'step9_text') return false; 
+    //             if (key === 'step17') return false; 
+    //             const value = formData[key];
+    //             return value !== undefined 
+    //             && value !== null 
+    //             && value !== ''
+    //             && String(value).trim() !== '';
+    //         })
+    //         .map(key => ({
+    //             step: key,
+    //             answer: formData[key]
+    //         }));
+    //     fetch('https://script.google.com/macros/s/AKfycbwYadIeETU5f-Q1bqqaA5STWdFpC2tgMFJPmvevlQjkDLLIGaNxefwRA5CZeG0z_Mk5/exec', {
+    //         method: 'POST',
+    //         body: JSON.stringify(formDataArray)
+    //     })
+    //         .then(response => response.json())
+    //         .then(result => {
+    //             alert(result.message || 'Отправлено!');
+    //             navigate('/complete'); 
+    //         })
+    //         .catch(error => alert('Ошибка: ' + error.message));
 
-    };
+    // };
     
-//     const handleSubmit = async () => {
-//     // Формируем массив данных, фильтруя ненужные ключи
-//     const formDataArray = Object.keys(formData)
-//         .filter(key => {
-//             if (key === 'step3_image' || key === 'step9_text' || key === 'step17') return false; 
-//             const value = formData[key];
-//             return value !== undefined 
-//                 && value !== null 
-//                 && value !== '' 
-//                 && String(value).trim() !== '';
-//         })
-//         .map(key => ({
-//             step: key,
-//             answer: formData[key]
-//         }));
+    const handleSubmit = async () => {
+    // Формируем массив данных, фильтруя ненужные ключи
+    const formDataArray = Object.keys(formData)
+        .filter(key => {
+            if (key === 'step3_image' || key === 'step9_text' || key === 'step17') return false; 
+            const value = formData[key];
+            return value !== undefined 
+                && value !== null 
+                && value !== '' 
+                && String(value).trim() !== '';
+        })
+        .map(key => ({
+            step: key,
+            answer: formData[key]
+        }));
 
-//     try {
-//         // Отправляем данные только на ваш PHP-скрипт на Beget
-//         const response = await fetch('https://industrial.ironandsteel.ru/send.php', {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//             },
-//             body: JSON.stringify(formDataArray),
-//         });
+    try {
+        // Отправляем данные только на ваш PHP-скрипт на Beget
+        const response = await fetch('https://industrial.ironandsteel.ru/send.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formDataArray),
+        });
 
-//         if (response.ok) {
-//             const result = await response.json();
-//             if (result.status === 'success') {
-//                 navigate('/complete'); 
-//             } else {
-//                 alert('Ошибка сервера при отправке почты');
-//             }
-//         } else {
-//             alert('Ошибка сети или сервера');
-//         }
-//     } catch (error) {
-//         console.error('Ошибка:', error);
-//         alert('Не удалось отправить форму: ' + error.message);
-//     }
-// };
+        if (response.ok) {
+            const result = await response.json();
+            if (result.status === 'success') {
+                navigate('/complete'); 
+            } else {
+                alert('Ошибка сервера при отправке почты');
+            }
+        } else {
+            alert('Ошибка сети или сервера');
+        }
+    } catch (error) {
+        console.error('Ошибка:', error);
+        alert('Не удалось отправить форму: ' + error.message);
+    }
+};
     const steps = {
         step0: <Step0 formData={formData} updateFormData={updateFormData} onNext={onNextWithHistory('step1')} />,
         step1: <Step1 formData={formData} updateFormData={updateFormData} onNext={onNextWithHistory('step2')} onBack={() => navigate('/')} />,

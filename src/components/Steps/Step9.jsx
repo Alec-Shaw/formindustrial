@@ -34,6 +34,8 @@ const Step9 = ({ formData, updateFormData, onBack, onNext }) => {
         const selectedText = e.target.dataset.text;
         setSelectedText(selectedText);
         setExpandedLength(value);
+        setApproxLength('');
+        setStraightLength('');
         updateFormData({ 
             Вытянутая_развернутая_длина: value,
             step9_text: selectedText
@@ -46,6 +48,8 @@ const Step9 = ({ formData, updateFormData, onBack, onNext }) => {
         const selectedText = e.target.dataset.text;
         setSelectedText(selectedText);
         setStraightLength(value);
+        setExpandedLength('');
+        setApproxLength('');
         updateFormData({ 
             От_котла_до_МК_по_прямой_Lпрям: value,
             step9_text: selectedText
@@ -58,6 +62,8 @@ const Step9 = ({ formData, updateFormData, onBack, onNext }) => {
         const selectedText = e.target.dataset.text;
         setSelectedText(selectedText);
         setApproxLength(value);
+        setExpandedLength('');
+        setStraightLength('');
         updateFormData({ 
             Примерно_не_более_Lпримерн: value,
             step9_text: selectedText
@@ -151,7 +157,7 @@ const Step9 = ({ formData, updateFormData, onBack, onNext }) => {
                     />
                 </label>
                 {errors.expandedLength && <p className="error">{errors.expandedLength}</p>}
-                <br />
+                
                 <div className='quest'>От котла до МК по прямой Lпрям (требуются размеры RBAM)</div>
                 <label>
                     <input
@@ -165,7 +171,7 @@ const Step9 = ({ formData, updateFormData, onBack, onNext }) => {
                     />
                 </label>
                 {errors.straightLength && <p className="error">{errors.straightLength}</p>}
-                <br />
+                
                 <div className='quest'>Примерно не более Lпримерн</div>
                 <label>
                     <input

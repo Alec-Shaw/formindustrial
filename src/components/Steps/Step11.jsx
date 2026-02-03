@@ -58,7 +58,7 @@ const Step11 = ({ formData, updateFormData, onBack, onNext }) => {
                     />
                 </label>
                 {errors.inBoilerRoom && <p className="error">{errors.inBoilerRoom}</p>}
-                <br />
+                
                 <div className='quest'>На улице</div>
                 <label>
                     <input

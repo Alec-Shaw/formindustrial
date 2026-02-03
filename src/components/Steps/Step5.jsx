@@ -45,7 +45,7 @@ const Step5 = ({ formData, updateFormData, onNext, onBack }) => {
                     />
                     Все котлы одинаковые
                 </label>
-                <br />
+               
                 <label>
                     <input
                         type="radio"

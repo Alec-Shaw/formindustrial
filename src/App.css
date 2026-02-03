@@ -9,6 +9,10 @@
   margin-right: 10px;
 }
 
+.radio {
+  display: flex;
+}
+
 .table_boiler {
   width: 300px;
   margin-right: 10px;
@@ -26,7 +30,7 @@
 
 label {
   display: flex;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 .quest{
   margin-bottom: 10px;
@@ -70,6 +74,13 @@ button {
   margin-top: 30px;
 }
 
+.fade-line {
+  height: 1px;
+  width: 80%;
+  background: linear-gradient(to right, #b351007c, transparent);
+  border: none;
+}
+
 input[type="radio"] {
     /* Скрываем стандартные стили */
     appearance: none;
@@ -83,11 +94,25 @@ input[type="radio"] {
     outline: none;
     margin-right: 8px;
     margin-top: 2px;
+    transition: 0.3s;
 }
 
 input[type="radio"]:checked {
-    background-color: #ffffff; /* Зеленый фон при выборе */
+    background-color: #ffffff; 
     border-color: #b8b8b8;
+}
+
+input[type="text"]:focus {
+     outline: none;
+     border: 1px #b351007c solid;
+     box-shadow: 0 0 1px rgba(0, 123, 255, 0.28);
+}
+
+input[type="text"] {
+    border-radius: 3px;
+    border: 1px #c3c3c3b2 solid;
+    padding: 5px;
+    box-shadow: 0 0 1px rgba(0, 123, 255, 0.28);
 }
 
 /* Точка внутри */
@@ -97,12 +122,12 @@ input[type="radio"]:checked::before {
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background: #b35100; /* Белая точка */
+    background: #b35100; 
     margin: 3px auto;
 }
 /* Hover: работает независимо */
 input[type="radio"]:hover {
   border-color: #b35100 !important;
-
+  transition: 0.3s;
 }
 

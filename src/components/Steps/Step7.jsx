@@ -60,7 +60,7 @@ const Step7 = ({ formData, updateFormData, onNext, onBack }) => {
                     />
                     Газ
                 </label>
-                <br />
+                
                 <label>
                     <input
                         type="radio"
@@ -72,7 +72,7 @@ const Step7 = ({ formData, updateFormData, onNext, onBack }) => {
                     />
                     Дизель
                 </label>
-                <br />
+                
                 <label>
                     <input
                         type="radio"
@@ -84,7 +84,7 @@ const Step7 = ({ formData, updateFormData, onNext, onBack }) => {
                     />
                     Газ/дизел
                 </label>
-                <br />
+                
                 <label>
                     <input
                         type="radio"
@@ -96,7 +96,7 @@ const Step7 = ({ formData, updateFormData, onNext, onBack }) => {
                     />
                     Дрова
                 </label>
-                <br />
+                
                 <label>
                     <input
                         type="radio"
@@ -108,7 +108,7 @@ const Step7 = ({ formData, updateFormData, onNext, onBack }) => {
                     />
                     Уголь
                 </label>
-                <br />
+                
                 {/* <label>
                     <input
                         type="radio"

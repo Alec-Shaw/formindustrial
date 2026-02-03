@@ -87,7 +87,7 @@ const Step8 = ({ formData, updateFormData, onNext, onBack }) => {
                         />
                         Да
                     </label>
-                    <br />
+                    
                     <label>
                         <input
                             type="radio"
@@ -114,7 +114,7 @@ const Step8 = ({ formData, updateFormData, onNext, onBack }) => {
                         />
                         Да
                     </label>
-                    <br />
+                    
                     <label>
                         <input
                             type="radio"
@@ -140,7 +140,7 @@ const Step8 = ({ formData, updateFormData, onNext, onBack }) => {
                         />
                     </label>
                     {errors.Диаметр_dk && <p className="error">{errors.Диаметр_dk}</p>}
-                    <br />
+                   
                     <div className='quest'>Высота дымоотводящего патрубка (hk)</div>
                     <label>
                         <input

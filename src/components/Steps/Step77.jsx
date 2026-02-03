@@ -82,7 +82,7 @@ const Step77 = ({ formData, updateFormData, onBack, onSubmit }) => {
                     />
                 </label>
                 {errors.inName && <p className="error">{errors.inName}</p>}
-                <br />
+                
                 <div className='quest'>Электронная почта</div>
                 <label>
                     <input
@@ -95,7 +95,7 @@ const Step77 = ({ formData, updateFormData, onBack, onSubmit }) => {
                     />
                 </label>
                 {errors.inEmail && <p className="error">{errors.inEmail}</p>}
-                <br />
+                
                 <div className='quest'>Телефон</div>
                 <label>
                     <input
@@ -109,14 +109,13 @@ const Step77 = ({ formData, updateFormData, onBack, onSubmit }) => {
                 </label>
                 {errors.inPhone && <p className="error">{errors.inPhone}</p>}
 
-                <br />
                 <label className="checkbox-label">
                     <input
                         type="checkbox"
                         checked={agreed}
                         onChange={handleAgreement}
                     />
-                    <span>Нажимая кнопку «Отправить», Вы соглашаетесь на обработку персональных данных и с политикой обработки персональных данных, а также - на получение почтовых рассылок рекламного и/или информационного характера.</span>
+                    <span style={{marginLeft: "10px"}}>Нажимая кнопку «Отправить», Вы соглашаетесь на обработку персональных данных и с политикой обработки персональных данных, а также - на получение почтовых рассылок рекламного и/или информационного характера.</span>
                 </label>
                 {errors.inAgreement && <p className="error">{errors.inAgreement}</p>}
                 

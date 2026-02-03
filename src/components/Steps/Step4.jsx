@@ -45,7 +45,7 @@ const Step4 = ({ formData, updateFormData, onNext, onBack }) => {
                     />
                     Только АЭ без чертежа
                 </label>
-                <br />
+                
                 <label>
                     <input
                         type="radio"
@@ -57,7 +57,7 @@ const Step4 = ({ formData, updateFormData, onNext, onBack }) => {
                     />
                     Только чертеж без АЭ
                 </label>
-                <br />
+                
                 <label>
                     <input
                         type="radio"
