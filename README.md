@@ -1,3 +1,7 @@
+This is a step-by-step form used during the design stage of projects such as boiler rooms, where chimney systems need to be calculated. Users input technical parameters of the equipment, and the collected data is sent directly to engineers. Based on this information, engineers design and calculate an appropriate chimney system.
+https://industrial.ironandsteel.ru/
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
